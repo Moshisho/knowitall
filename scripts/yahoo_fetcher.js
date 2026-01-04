@@ -189,6 +189,27 @@ function saveSymbolsData(data) {
   fs.writeFileSync(SYMBOLS_DATA_FILE, JSON.stringify(data, null, 2));
 }
 
+function checkExistingData(symbol, startDateStr, horizon) {
+  const symbolsData = loadSymbolsData();
+  const startDate = parseDate(startDateStr);
+  const dateKey = formatDate(startDate);
+  
+  const existingEntry = symbolsData.find(
+    entry => entry.date === dateKey && 
+             entry.symbol === symbol.toUpperCase() && 
+             entry.horizon === horizon.toLowerCase()
+  );
+  
+  if (existingEntry) {
+    console.log(`Found existing data for ${symbol} ${horizon} starting ${dateKey}:`);
+    console.log(`Open: ${existingEntry['open-price']}, Close: ${existingEntry['close-price']}`);
+    console.log(`Change: ${existingEntry['change-abs']} (${existingEntry['change-percentage']}%)`);
+    return existingEntry;
+  }
+  
+  return null;
+}
+
 async function calculateReturn(symbol, startDateStr, horizon) {
   const startDate = parseDate(startDateStr);
   const endDate = addHorizonToDate(startDate, horizon);
@@ -231,6 +252,11 @@ async function main() {
     console.error('Periods: 1M, 3M, 12M');
     console.error('START_MONTH format: YYYY-MM-DD or MM-YYYY');
     process.exit(1);
+  }
+  
+  if (checkExistingData(symbol.toUpperCase(), startMonth, period)) {
+    console.log('Using existing data, no fetch needed.');
+    return;
   }
   
   try {

@@ -57,5 +57,14 @@
     "close-price": 272.05,
     "change-abs": -5.96,
     "change-percentage": -2.14
+  },
+  {
+    "date": "2024-08-31",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "open-price": 228.55,
+    "close-price": 229.52,
+    "change-abs": 0.97,
+    "change-percentage": 0.42
   }
 ]

@@ -1,11 +1,11 @@
-// Stock price fetcher: fetches price data and calculates returns
-// Usage: node scripts/stock_fetcher.js SYMBOL START_DATE HORIZON
-// Example: node scripts/stock_fetcher.js AAPL 2024-09-29 3m
+// Alpha Vantage fetcher: fetches price data and calculates returns
+// Usage: node scripts/av_fetcher.js SYMBOL START_DATE HORIZON
+// Example: node scripts/av_fetcher.js AAPL 2024-09-29 3m
 
 import fs from 'fs';
 import path from 'path';
 
-const SYMBOLS_DATA_FILE = path.resolve('symbols-data.json');
+const SYMBOLS_DATA_FILE = path.resolve('data/symbols-data-av.json');
 const AV_BASE_URL = 'https://www.alphavantage.co/query';
 
 function parseDate(dateStr) {
@@ -156,6 +156,26 @@ function saveSymbolsData(data) {
   fs.writeFileSync(SYMBOLS_DATA_FILE, JSON.stringify(data, null, 2));
 }
 
+function checkExistingData(symbol, startDateStr, horizon) {
+  const symbolsData = loadSymbolsData();
+  const startDate = parseDate(startDateStr);
+  const dateKey = formatDate(startDate);
+  
+  const existingEntry = symbolsData.find(
+    entry => entry.date === dateKey && 
+             entry.symbol === symbol.toUpperCase() && 
+             entry.horizon === horizon.toLowerCase()
+  );
+  
+  if (existingEntry) {
+    console.log(`Found existing data for ${symbol} ${horizon} starting ${dateKey}:`);
+    console.log(`Change: ${existingEntry['change-abs']} (${existingEntry['change-percentage']}%)`);
+    return existingEntry;
+  }
+  
+  return null;
+}
+
 async function calculateReturn(symbol, startDateStr, horizon, apiKey) {
   const startDate = parseDate(startDateStr);
   const endDate = addHorizonToDate(startDate, horizon);
@@ -166,6 +186,11 @@ async function calculateReturn(symbol, startDateStr, horizon, apiKey) {
   
   const startPrice = getClosestPrice(timeSeries, startDate);
   const endPrice = getClosestPrice(timeSeries, endDate);
+  
+  // Validate that we got meaningful price data
+  if (startPrice.price === endPrice.price && startPrice.date === endPrice.date) {
+    throw new Error('Invalid price data: start and end prices are identical with same date');
+  }
   
   const changeAbs = endPrice.price - startPrice.price;
   const changePercentage = (changeAbs / startPrice.price) * 100;
@@ -192,10 +217,15 @@ async function main() {
   const [symbol, startDateStr, horizon] = process.argv.slice(2);
   
   if (!symbol || !startDateStr || !horizon) {
-    console.error('Usage: node scripts/stock_fetcher.js SYMBOL START_DATE HORIZON');
-    console.error('Example: node scripts/stock_fetcher.js AAPL 2024-09-29 3m');
+    console.error('Usage: node scripts/av_fetcher.js SYMBOL START_DATE HORIZON');
+    console.error('Example: node scripts/av_fetcher.js AAPL 2024-09-29 3m');
     console.error('Horizons: 3d, 7d, 14d, 1m, 3m, 12m');
     process.exit(1);
+  }
+  
+  if (checkExistingData(symbol.toUpperCase(), startDateStr, horizon)) {
+    console.log('Using existing data, no fetch needed.');
+    return;
   }
   
   try {
@@ -220,9 +250,9 @@ async function main() {
     
     saveSymbolsData(symbolsData);
     console.log(`✓ Data saved to ${SYMBOLS_DATA_FILE}`);
-    
-  } catch (error) {
-    console.error('Error:', error.message);
+  } catch (fetchError) {
+    console.error('Fetch failed:', fetchError.message);
+    console.error('Data will not be saved due to fetch failure.');
     process.exit(1);
   }
 }

@@ -14,8 +14,20 @@ A project to highlight best symbols from signals
 - Parse a single file: `IKF_FILE=unit-test-data/29_Sep_2024.xls npm run parse:ikf`
 - Run tests: `npm test`
 
-### Stock data fetcher
-- Fetch actual stock returns: `AV_API_KEY=YOUR_KEY npm run fetch:stock SYMBOL START_DATE HORIZON`
-  - Example: `AV_API_KEY=B7YI5ATJRLLZ1J0P npm run fetch:stock AAPL 2024-09-29 3m`
+### Data fetchers
+
+#### Alpha Vantage fetcher
+- Fetch actual stock returns: `AV_API_KEY=YOUR_KEY npm run fetch:av SYMBOL START_DATE HORIZON`
+  - Example: `npm run fetch:av AAPL 2024-09-29 3m` (AV_API_KEY should be exported)
   - Uses Alpha Vantage free tier (~100 days of data)
-  - Saves to `symbols-data.json` for comparison with IKF predictions
+  - Supports horizons: 3d, 7d, 14d, 1m, 3m, 12m
+  - Saves to `data/symbols-data-av.json` for comparison with IKF predictions
+
+#### Yahoo Finance fetcher
+- Fetch monthly stock returns: `npm run fetch:yahoo SYMBOL PERIOD START_MONTH`
+  - Example: `npm run fetch:yahoo AAPL 1M 09-2024`
+  - Uses Puppeteer to scrape Yahoo Finance monthly historical data
+  - Supports periods: 1M, 3M, 12M
+  - Date format: YYYY-MM-DD or MM-YYYY
+  - Saves to `data/symbols-data-yh.json` for comparison with IKF predictions
+  - Both fetchers check for existing data before attempting to fetch
