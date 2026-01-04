@@ -6,6 +6,7 @@
   "scripts": {
     "parse:ikf": "node scripts/ikf_parser.js --no-warnings",
     "parse:ikf:warn": "node scripts/ikf_parser.js",
+    "fetch:stock": "node scripts/stock_fetcher.js",
     "test": "node tests/ikf_parser.test.js"
   },
   "dependencies": {
