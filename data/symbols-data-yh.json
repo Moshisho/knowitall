@@ -1,0 +1,61 @@
+[
+  {
+    "date": "2024-08-31",
+    "symbol": "MSTR",
+    "horizon": "3m",
+    "change-abs": 157.62,
+    "change-percentage": 119.41
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "open-price": 229.52,
+    "close-price": 220.97,
+    "change-abs": -8.55,
+    "change-percentage": -3.73
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "change-abs": 28.32,
+    "change-percentage": 12.82
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "SWK",
+    "horizon": "3m",
+    "open-price": 110.32,
+    "close-price": 80.9,
+    "change-abs": -29.42,
+    "change-percentage": -26.67
+  },
+  {
+    "date": "2024-08-31",
+    "symbol": "MSFT",
+    "horizon": "1m",
+    "open-price": 417.91,
+    "close-price": 402.57,
+    "change-abs": -15.34,
+    "change-percentage": -3.67
+  },
+  {
+    "date": "2024-11-30",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "open-price": 237.27,
+    "close-price": 248.93,
+    "change-abs": 11.66,
+    "change-percentage": 4.91
+  },
+  {
+    "date": "2025-11-30",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "open-price": 278.01,
+    "close-price": 272.05,
+    "change-abs": -5.96,
+    "change-percentage": -2.14
+  }
+]

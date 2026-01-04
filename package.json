@@ -7,9 +7,11 @@
     "parse:ikf": "node scripts/ikf_parser.js --no-warnings",
     "parse:ikf:warn": "node scripts/ikf_parser.js",
     "fetch:stock": "node scripts/stock_fetcher.js",
+    "fetch:yahoo": "node scripts/yahoo_fetcher.js",
     "test": "node tests/ikf_parser.test.js"
   },
   "dependencies": {
+    "puppeteer": "^24.34.0",
     "xlsx": "^0.18.5"
   }
 }

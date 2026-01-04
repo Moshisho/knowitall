@@ -33,5 +33,12 @@
     "horizon": "1m",
     "change-abs": -1.97,
     "change-percentage": -2.67
+  },
+  {
+    "date": "2025-11-30",
+    "symbol": "AAPL",
+    "horizon": "1m",
+    "change-abs": -6.99,
+    "change-percentage": -2.51
   }
 ]
