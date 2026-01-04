@@ -66,5 +66,113 @@
     "close-price": 229.52,
     "change-abs": 0.97,
     "change-percentage": 0.42
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "MHK",
+    "horizon": "3m",
+    "open-price": 160.68,
+    "close-price": 120.37,
+    "change-abs": -40.31,
+    "change-percentage": -25.09
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "IIPR",
+    "horizon": "3m",
+    "open-price": 134.81,
+    "close-price": 67.1,
+    "change-abs": -67.71,
+    "change-percentage": -50.23
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "ZBRA",
+    "horizon": "3m",
+    "open-price": 369.84,
+    "close-price": 386.5,
+    "change-abs": 16.66,
+    "change-percentage": 4.5
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "GWRE",
+    "horizon": "3m",
+    "open-price": 182.69,
+    "close-price": 169.95,
+    "change-abs": -12.74,
+    "change-percentage": -6.97
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "FVRR",
+    "horizon": "3m",
+    "open-price": 29.49,
+    "close-price": 29.77,
+    "change-abs": 0.28,
+    "change-percentage": 0.95
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "TWLO",
+    "horizon": "3m",
+    "open-price": 81,
+    "close-price": 142.54,
+    "change-abs": 61.54,
+    "change-percentage": 75.98
+  },
+  {
+    "date": "2024-08-31",
+    "symbol": "GOOGL",
+    "horizon": "1m",
+    "open-price": 161.72,
+    "close-price": 167.69,
+    "change-abs": 5.97,
+    "change-percentage": 3.69
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "SHOP",
+    "horizon": "3m",
+    "open-price": 79.05,
+    "close-price": 111.87,
+    "change-abs": 32.82,
+    "change-percentage": 41.52
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "EAT",
+    "horizon": "3m",
+    "open-price": 103.29,
+    "close-price": 178.72,
+    "change-abs": 75.43,
+    "change-percentage": 73.03
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "HLNE",
+    "horizon": "3m",
+    "open-price": 180.21,
+    "close-price": 153.95,
+    "change-abs": -26.26,
+    "change-percentage": -14.57
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "XPO",
+    "horizon": "3m",
+    "open-price": 131.81,
+    "close-price": 130.4,
+    "change-abs": -1.41,
+    "change-percentage": -1.07
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "XPO",
+    "horizon": "1m",
+    "open-price": 131.81,
+    "close-price": 152.5,
+    "change-abs": 20.69,
+    "change-percentage": 15.7
   }
 ]

@@ -38,11 +38,20 @@ function formatDate(date) {
 async function fetchYahooData(symbol, startDate, endDate) {
   console.log(`Opening browser to fetch data for ${symbol}...`);
   
+  // Use a user data directory to persist cookies and session
+  const userDataDir = './browser-session';
+  
   const browser = await puppeteer.launch({ 
     headless: false,
     slowMo: 100,
     defaultViewport: null,
-    args: ['--start-maximized']
+    userDataDir: userDataDir,
+    args: [
+      '--start-maximized',
+      '--no-first-run',
+      '--no-default-browser-check',
+      '--disable-blink-features=AutomationControlled'
+    ]
   });
   
   const page = await browser.newPage();
@@ -60,18 +69,18 @@ async function fetchYahooData(symbol, startDate, endDate) {
   await page.goto(url, { waitUntil: 'networkidle2' });
   
   // Wait for the page to load
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  await new Promise(resolve => setTimeout(resolve, 1000));
   
   // Handle consent popup if present
   try {
     console.log('Looking for consent popup...');
     // Scroll down to see if there's a consent popup
     await page.evaluate(() => window.scrollBy(0, 200));
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 800));
     
     // First try to find and click the "מעבר אל הסוף" (Go to end) button
     try {
-      await page.waitForSelector('button', { timeout: 2000 });
+      await page.waitForSelector('button', { timeout: 1500 });
       const buttons = await page.$$('button');
       for (const button of buttons) {
         const text = await page.evaluate(el => el.textContent, button);
@@ -98,9 +107,9 @@ async function fetchYahooData(symbol, startDate, endDate) {
     
     for (const selector of rejectSelectors) {
       try {
-        await page.waitForSelector(selector, { timeout: 2000 });
+        await page.waitForSelector(selector, { timeout: 1500 });
         await page.click(selector);
-        console.log('Clicked reject all button');
+        console.log('Clicked reject all button, selector:', selector);
         await new Promise(resolve => setTimeout(resolve, 2000));
         break;
       } catch (e) {
@@ -126,7 +135,7 @@ async function fetchYahooData(symbol, startDate, endDate) {
       return { date: dateStr, open };
     }).filter(item => item);
   });
-  
+  await new Promise(resolve => setTimeout(resolve, 10000));
   await browser.close();
   
   console.log(`Found ${data.length} monthly data points`);
