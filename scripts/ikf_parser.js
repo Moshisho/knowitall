@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import xlsx from 'xlsx';
 
-const DATA_DIR = path.resolve('data');
+const DATA_DIR = path.resolve('data/ikf');
 
 export function parseDateFromFilename(filename) {
   const m = filename.match(/_(\d{2})_([A-Za-z]{3})_(\d{4})\./);
@@ -118,7 +118,29 @@ export function parseIkfWorkbook(filePath) {
 function main() {
   if (process.env.IKF_FILE) {
     const parsed = parseIkfWorkbook(process.env.IKF_FILE);
-    parsed.forEach(obj => console.log(JSON.stringify(obj)));
+    parsed.forEach(obj => {
+      console.log(JSON.stringify(obj));
+      
+      const dataFile = path.join('data', 'symbols-predict-ikf.json');
+      let data = [];
+      
+      if (fs.existsSync(dataFile)) {
+        const fileContent = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+        data = Array.isArray(fileContent) ? fileContent : [];
+      }
+      
+      // Check if this object already exists (by date, horizon, symbol)
+      const exists = data.some(item => 
+        item.date === obj.date && 
+        item.horizon === obj.horizon && 
+        item.symbol === obj.symbol
+      );
+      
+      if (!exists) {
+        data.push(obj);
+        fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), 'utf8');
+      }
+    });
     return;
   }
   if (!fs.existsSync(DATA_DIR)) {
