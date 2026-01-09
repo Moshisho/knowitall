@@ -84,7 +84,7 @@ async function fetchYahooData(symbol, startDate, endDate) {
       const buttons = await page.$$('button');
       for (const button of buttons) {
         const text = await page.evaluate(el => el.textContent, button);
-        if (text && text.includes('מעבר אל הסוף')) {
+        if (text?.includes('מעבר אל הסוף')) {
           await button.click();
           console.log('Clicked "מעבר אל הסוף" button');
           await new Promise(resolve => setTimeout(resolve, 2000));
