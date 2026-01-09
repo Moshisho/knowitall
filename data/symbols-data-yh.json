@@ -174,5 +174,59 @@
     "close-price": 152.5,
     "change-abs": 20.69,
     "change-percentage": 15.7
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "CVNA",
+    "horizon": "12m",
+    "open-price": 247.31,
+    "close-price": 306.64,
+    "change-abs": 59.33,
+    "change-percentage": 23.99
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "GWRE",
+    "horizon": "3m",
+    "open-price": 186.51,
+    "close-price": 208.42,
+    "change-abs": 21.91,
+    "change-percentage": 11.75
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "PLTR",
+    "horizon": "3m",
+    "open-price": 41.93,
+    "close-price": 80.13,
+    "change-abs": 38.2,
+    "change-percentage": 91.1
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "PHG",
+    "horizon": "3m",
+    "open-price": 26.5,
+    "close-price": 26.82,
+    "change-abs": 0.32,
+    "change-percentage": 1.21
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "NTAP",
+    "horizon": "3m",
+    "open-price": 115.56,
+    "close-price": 119.26,
+    "change-abs": 3.7,
+    "change-percentage": 3.2
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "UMC",
+    "horizon": "3m",
+    "open-price": 7.01,
+    "close-price": 5.92,
+    "change-abs": -1.09,
+    "change-percentage": -15.55
   }
 ]
