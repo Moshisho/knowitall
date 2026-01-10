@@ -6,6 +6,12 @@ A project to highlight best symbols from signals
 - Extracts per-symbol predictions: `date`, `horizon (3d/7d/14d/1m/3m/12m)`, `signal`, `predictability`.
 - CLI parses files in `data/`; tests validate specific entries from `unit-test-data/29_Sep_2024.xls`.
 
+## Aggregator
+- Combines prediction data from `symbols-predict-ikf.json` with actual performance data from `symbols-data-av.json` and `symbols-data-yh.json`.
+- Creates unified array with structure: `{ date, symbol, horizon, prediction: { signal, predictability }, performance: { av: {...}, yh: {...} } }`
+- Matches records by date, symbol, and horizon.
+- Usage: `npm run aggregate`
+
 ## Usage
 - Install: `npm install`
 

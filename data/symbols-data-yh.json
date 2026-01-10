@@ -228,5 +228,32 @@
     "close-price": 5.92,
     "change-abs": -1.09,
     "change-percentage": -15.55
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "SHOP",
+    "horizon": "12m",
+    "open-price": 80,
+    "close-price": 146.28,
+    "change-abs": 66.28,
+    "change-percentage": 82.85
+  },
+  {
+    "date": "2024-09-30",
+    "symbol": "SLNO",
+    "horizon": "12m",
+    "open-price": 50.49,
+    "close-price": 66.59,
+    "change-abs": 16.1,
+    "change-percentage": 31.89
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "SHOP",
+    "horizon": "12m",
+    "open-price": 80,
+    "close-price": 146.28,
+    "change-abs": 66.28,
+    "change-percentage": 82.85
   }
 ]
