@@ -71,58 +71,74 @@ async function fetchYahooData(symbol, startDate, endDate) {
   // Wait for the page to load
   await new Promise(resolve => setTimeout(resolve, 1000));
   
-  // Handle consent popup if present
-  try {
-    console.log('Looking for consent popup...');
-    // Scroll down to see if there's a consent popup
-    await page.evaluate(() => window.scrollBy(0, 200));
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    // First try to find and click the "מעבר אל הסוף" (Go to end) button
+  // Check if table is already loaded (skip popup handling if so)
+  async function tryExtractTableEarly() {
     try {
-      await page.waitForSelector('button', { timeout: 1500 });
-      const buttons = await page.$$('button');
-      for (const button of buttons) {
-        const text = await page.evaluate(el => el.textContent, button);
-        if (text?.includes('מעבר אל הסוף')) {
-          await button.click();
-          console.log('Clicked "מעבר אל הסוף" button');
+      await page.waitForSelector('table', { timeout: 2000 });
+      console.log('Table found, skipping popup handling...');
+      return true;
+    } catch (e) {
+      console.log('Table not ready, proceeding with popup handling...');
+      return false;
+    }
+  }
+  
+  const tableReady = await tryExtractTableEarly();
+  
+  if (!tableReady) {
+    // Handle consent popup if present
+    try {
+      console.log('Looking for consent popup...');
+      // Scroll down to see if there's a consent popup
+      await page.evaluate(() => window.scrollBy(0, 200));
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      // First try to find and click the "מעבר אל הסוף" (Go to end) button
+      try {
+        await page.waitForSelector('button', { timeout: 1500 });
+        const buttons = await page.$$('button');
+        for (const button of buttons) {
+          const text = await page.evaluate(el => el.textContent, button);
+          if (text?.includes('מעבר אל הסוף')) {
+            await button.click();
+            console.log('Clicked "מעבר אל הסוף" button');
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            break;
+          }
+        }
+      } catch (e) {
+        console.log('Could not find "מעבר אל הסוף" button');
+      }
+      
+      // Then try to find and click the "Reject All" button (דחה הכל)
+      const rejectSelectors = [
+        'button[name="reject"]',
+        'button[data-testid="reject-all"]',
+        'button:contains("דחה הכל")',
+        'button:contains("Reject all")',
+        '.reject-all',
+        '#reject-all-button'
+      ];
+      
+      for (const selector of rejectSelectors) {
+        try {
+          await page.waitForSelector(selector, { timeout: 1500 });
+          await page.click(selector);
+          console.log('Clicked reject all button, selector:', selector);
           await new Promise(resolve => setTimeout(resolve, 2000));
           break;
+        } catch (e) {
+          // Continue to next selector
         }
       }
-    } catch (e) {
-      console.log('Could not find "מעבר אל הסוף" button');
+    } catch (error) {
+      console.log('No consent popup found or could not handle it');
     }
-    
-    // Then try to find and click the "Reject All" button (דחה הכל)
-    const rejectSelectors = [
-      'button[name="reject"]',
-      'button[data-testid="reject-all"]',
-      'button:contains("דחה הכל")',
-      'button:contains("Reject all")',
-      '.reject-all',
-      '#reject-all-button'
-    ];
-    
-    for (const selector of rejectSelectors) {
-      try {
-        await page.waitForSelector(selector, { timeout: 1500 });
-        await page.click(selector);
-        console.log('Clicked reject all button, selector:', selector);
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        break;
-      } catch (e) {
-        // Continue to next selector
-      }
-    }
-  } catch (error) {
-    console.log('No consent popup found or could not handle it');
   }
   
   // Wait for table to load
   await page.waitForSelector('table', { timeout: 10000 });
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await new Promise(resolve => setTimeout(resolve, 200));
   
   // Extract monthly data from table
   const data = await page.$$eval('table tbody tr', rows => {
