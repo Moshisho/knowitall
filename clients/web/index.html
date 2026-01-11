@@ -2049,16 +2049,106 @@
         alert('Copy failed: ' + err);
       });
     }
+
+    // Fetch Yahoo data via API
+    async function fetchYahooData(symbol, horizon, startDate, button) {
+      const originalText = button.innerHTML;
+      button.innerHTML = '⏳ Fetching...';
+      button.disabled = true;
+      
+      try {
+        const response = await fetch('/api/fetch-yahoo', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            symbol: symbol,
+            horizon: horizon,
+            startDate: startDate
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        
+        if (result.success) {
+          button.innerHTML = '✅ Success';
+          button.style.background = '#27ae60';
+          button.style.color = 'white';
+          
+          // Update the data in memory and re-render
+          updateRowData(symbol, horizon, startDate, result.data, result.fromCache);
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.style.background = '';
+            button.style.color = '';
+            button.disabled = false;
+          }, 2000);
+        } else {
+          throw new Error(result.error || 'Unknown error');
+        }
+      } catch (error) {
+        console.error('Fetch failed:', error);
+        button.innerHTML = '❌ Error';
+        button.style.background = '#e74c3c';
+        button.style.color = 'white';
+        alert('Fetch failed: ' + error.message);
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.style.background = '';
+          button.style.color = '';
+          button.disabled = false;
+        }, 3000);
+      }
+    }
+
+    // Update row data after successful fetch
+    function updateRowData(symbol, horizon, startDate, newData, fromCache) {
+      // Find the row in rawData that matches
+      const rowIndex = rawData.findIndex(row => 
+        row.symbol === symbol && 
+        row.horizon === horizon && 
+        row.date === startDate
+      );
+      
+      if (rowIndex !== -1) {
+        // Update the performance data
+        rawData[rowIndex].performance.yh = {
+          'open-price': newData['open-price'],
+          'close-price': newData['close-price'],
+          'change-abs': newData['change-abs'],
+          'change-percentage': newData['change-percentage']
+        };
+        
+        // Re-apply filters to update filteredData
+        applyFilters();
+        
+        console.log(`Updated ${symbol} ${horizon} ${startDate} with Yahoo data${fromCache ? ' (from cache)' : ''}`);
+      }
+    }
     
-    // Make it globally available
+    // Make functions globally available
     window.copyToClipboard = copyToClipboard;
+    window.fetchYahooData = fetchYahooData;
     
     // Format with color or fetch button
     function formatWithColor(val, isPercent = false, row = null, dataSource = null) {
       if (val === null || val === undefined) {
         if (row && dataSource) {
-          const cmd = generateFetchCommand(row, dataSource);
-          return `<button class="fetch-btn" onclick="copyToClipboard('${cmd}', this)" title="Copy fetch command to clipboard">📋 Fetch`;
+          if (dataSource === 'yh') {
+            // Yahoo fetcher: use API call
+            return `<button class="fetch-btn" onclick="fetchYahooData('${row.symbol}', '${row.horizon}', '${row.date}', this)" title="Fetch Yahoo Finance data via API">🚀 Fetch</button>`;
+          } else {
+            // AV fetcher: copy command to clipboard
+            const cmd = generateFetchCommand(row, dataSource);
+            return `<button class="fetch-btn" onclick="copyToClipboard('${cmd}', this)" title="Copy fetch command to clipboard">📋 Fetch</button>`;
+          }
         }
         return '-';
       }

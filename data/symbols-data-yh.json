@@ -273,5 +273,14 @@
     "close-price": 403.84,
     "change-abs": 188.58,
     "change-percentage": 87.61
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "FVRR",
+    "horizon": "3d",
+    "open-price": 29.04,
+    "close-price": 30.19,
+    "change-abs": 1.15,
+    "change-percentage": 3.96
   }
 ]
