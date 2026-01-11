@@ -282,5 +282,32 @@
     "close-price": 30.19,
     "change-abs": 1.15,
     "change-percentage": 3.96
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "CVNA",
+    "horizon": "3d",
+    "open-price": 238.2,
+    "close-price": 229.08,
+    "change-abs": -9.12,
+    "change-percentage": -3.83
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "TARS",
+    "horizon": "3d",
+    "open-price": 44.38,
+    "close-price": 47.3,
+    "change-abs": 2.92,
+    "change-percentage": 6.58
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "XPO",
+    "horizon": "3d",
+    "open-price": 135,
+    "close-price": 130.19,
+    "change-abs": -4.81,
+    "change-percentage": -3.56
   }
 ]
