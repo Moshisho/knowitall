@@ -12,7 +12,8 @@
     "build:web": "node scripts/build-web.js",
     "serve:web": "node scripts/serve-web.js",
     "start": "npm run build:web && npm run serve:web",
-    "test": "node tests/ikf_parser.test.js"
+    "test": "node tests/ikf_parser.test.js",
+    "test:yahoo-api": "node test-yahoo-api.js"
   },
   "dependencies": {
     "puppeteer": "^24.34.0",

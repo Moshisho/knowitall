@@ -255,5 +255,23 @@
     "close-price": 146.28,
     "change-abs": 66.28,
     "change-percentage": 82.85
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "AAPL",
+    "horizon": "3d",
+    "open-price": 229.34,
+    "close-price": 222.91,
+    "change-abs": -6.43,
+    "change-percentage": -2.8
+  },
+  {
+    "date": "2024-08-31",
+    "symbol": "TSLA",
+    "horizon": "3m",
+    "open-price": 215.26,
+    "close-price": 403.84,
+    "change-abs": 188.58,
+    "change-percentage": 87.61
   }
 ]

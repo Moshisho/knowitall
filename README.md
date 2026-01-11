@@ -30,10 +30,27 @@ A project to highlight best symbols from signals
   - Saves to `data/symbols-data-av.json` for comparison with IKF predictions
 
 #### Yahoo Finance fetcher
-- Fetch monthly stock returns: `npm run fetch:yahoo SYMBOL PERIOD START_MONTH`
-  - Example: `npm run fetch:yahoo AAPL 1M 09-2024`
-  - Uses Puppeteer to scrape Yahoo Finance monthly historical data
-  - Supports periods: 1M, 3M, 12M
-  - Date format: YYYY-MM-DD or MM-YYYY
+- **CLI Usage**: `npm run fetch:yahoo SYMBOL PERIOD START_DATE`
+  - Example: `npm run fetch:yahoo AAPL 3M 2024-09-01` (monthly data)
+  - Example: `npm run fetch:yahoo TSLA 3d 2024-10-31` (daily data)
+  - Example: `npm run fetch:yahoo MSTR 7d 10-2024` (daily data)
+  - Uses Puppeteer to scrape Yahoo Finance historical data
+  - **Supports periods**: 3d, 7d, 14d (daily data), 1M, 3M, 12M (monthly data)
+  - **Date format**: YYYY-MM-DD or MM-YYYY
+  - **Price methodology**: Open price for start date, Close price for end date
   - Saves to `data/symbols-data-yh.json` for comparison with IKF predictions
-  - Both fetchers check for existing data before attempting to fetch
+  - Checks for existing data before attempting to fetch
+
+- **HTTP API Usage**: 
+  - Start server: `npm run serve:web` (browser session starts automatically)
+  - API endpoint: `POST http://localhost:3000/api/fetch-yahoo`
+  - Request body: `{"symbol": "AAPL", "horizon": "3d", "startDate": "2024-10-31"}`
+  - Returns JSON with success status and data
+  - Uses persistent browser session for efficiency
+  - Test API: `npm run test:yahoo-api`
+
+- **Horizon Logic**:
+  - **Short horizons** (3d, 7d, 14d): Uses specific date range URLs for daily data
+  - **Long horizons** (1M, 3M, 12M): Uses 5-year historical range for monthly data
+
+**Note**: Both fetchers check for existing data before attempting to fetch to avoid duplicates.
