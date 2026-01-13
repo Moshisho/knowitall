@@ -309,5 +309,59 @@
     "close-price": 130.19,
     "change-abs": -4.81,
     "change-percentage": -3.56
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "EAT",
+    "horizon": "14d",
+    "open-price": 103.21,
+    "close-price": 118.65,
+    "change-abs": 15.44,
+    "change-percentage": 14.96
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "FVRR",
+    "horizon": "7d",
+    "open-price": 29.04,
+    "close-price": 29.54,
+    "change-abs": 0.5,
+    "change-percentage": 1.72
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "IEUR",
+    "horizon": "12m",
+    "open-price": 60.84,
+    "close-price": 68.51,
+    "change-abs": 7.67,
+    "change-percentage": 12.61
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "BITF",
+    "horizon": "12m",
+    "open-price": 2.1,
+    "close-price": 3.97,
+    "change-abs": 1.87,
+    "change-percentage": 89.05
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "PLTR",
+    "horizon": "12m",
+    "open-price": 37.21,
+    "close-price": 200.47,
+    "change-abs": 163.26,
+    "change-percentage": 438.75
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "ITT",
+    "horizon": "12m",
+    "open-price": 149.65,
+    "close-price": 185.07,
+    "change-abs": 35.42,
+    "change-percentage": 23.67
   }
 ]

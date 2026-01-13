@@ -4,6 +4,7 @@
 
 1. Days in horizon doesn't consider business days
 2. AV fetcher is restricted
+3. After refresh with sort, sort is reset
 
 ## Features
 
