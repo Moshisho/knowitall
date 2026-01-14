@@ -363,5 +363,41 @@
     "close-price": 185.07,
     "change-abs": 35.42,
     "change-percentage": 23.67
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "CAMT",
+    "horizon": "3m",
+    "open-price": 80.11,
+    "close-price": 94.54,
+    "change-abs": 14.43,
+    "change-percentage": 18.01
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "SHAK",
+    "horizon": "3m",
+    "open-price": 101.46,
+    "close-price": 118.13,
+    "change-abs": 16.67,
+    "change-percentage": 16.43
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "MU",
+    "horizon": "3m",
+    "open-price": 103.4,
+    "close-price": 91.24,
+    "change-abs": -12.16,
+    "change-percentage": -11.76
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "ANF",
+    "horizon": "3m",
+    "open-price": 139.27,
+    "close-price": 119.38,
+    "change-abs": -19.89,
+    "change-percentage": -14.28
   }
 ]
