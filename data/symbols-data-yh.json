@@ -399,5 +399,86 @@
     "close-price": 119.38,
     "change-abs": -19.89,
     "change-percentage": -14.28
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "FVRR",
+    "horizon": "3d",
+    "open-price": 29.04,
+    "close-price": 30.19,
+    "change-abs": 1.15,
+    "change-percentage": 3.96
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "CVNA",
+    "horizon": "3d",
+    "open-price": 238.2,
+    "close-price": 229.08,
+    "change-abs": -9.12,
+    "change-percentage": -3.83
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "TARS",
+    "horizon": "3d",
+    "open-price": 44.38,
+    "close-price": 47.3,
+    "change-abs": 2.92,
+    "change-percentage": 6.58
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "XPO",
+    "horizon": "3d",
+    "open-price": 135,
+    "close-price": 130.19,
+    "change-abs": -4.81,
+    "change-percentage": -3.56
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "EAT",
+    "horizon": "3d",
+    "open-price": 103.21,
+    "close-price": 104.92,
+    "change-abs": 1.71,
+    "change-percentage": 1.66
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "FVRR",
+    "horizon": "7d",
+    "open-price": 29.04,
+    "close-price": 29.54,
+    "change-abs": 0.5,
+    "change-percentage": 1.72
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "LYG",
+    "horizon": "7d",
+    "open-price": 2.79,
+    "close-price": 2.81,
+    "change-abs": 0.02,
+    "change-percentage": 0.72
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "GE",
+    "horizon": "14d",
+    "open-price": 172,
+    "close-price": 183.56,
+    "change-abs": 11.56,
+    "change-percentage": 6.72
+  },
+  {
+    "date": "2024-10-31",
+    "symbol": "EBAY",
+    "horizon": "1m",
+    "open-price": 65.15,
+    "close-price": 61.95,
+    "change-abs": -3.2,
+    "change-percentage": -4.91
   }
 ]
