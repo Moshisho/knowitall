@@ -13,10 +13,15 @@
     "serve:web": "node scripts/serve-web.js",
     "start": "npm run build:web && npm run serve:web",
     "test": "node tests/ikf_parser.test.js",
-    "test:yahoo-api": "node test-yahoo-api.js"
+    "test:yahoo-api": "node test-yahoo-api.js",
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "puppeteer": "^24.34.0",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
   }
 }
