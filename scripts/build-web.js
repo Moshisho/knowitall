@@ -227,11 +227,41 @@ function generateHTML(data) {
       transition: all 0.2s;
     }
     
-    .fetch-btn:hover {
-      background: #e3f2fd;
-      border-style: solid;
-    }
-  </style>
+     .fetch-btn:hover {
+       background: #e3f2fd;
+       border-style: solid;
+     }
+     
+     .checkbox-group {
+       display: flex;
+       gap: 15px;
+       flex-wrap: wrap;
+       align-items: center;
+     }
+     
+     .checkbox-label {
+       display: flex;
+       align-items: center;
+       gap: 6px;
+       cursor: pointer;
+       font-size: 14px;
+       font-weight: normal;
+       color: #333;
+       text-transform: none;
+     }
+     
+     .checkbox-label input[type="checkbox"] {
+       cursor: pointer;
+       width: 16px;
+       height: 16px;
+       margin: 0;
+     }
+     
+     th.hidden,
+     td.hidden {
+       display: none;
+     }
+   </style>
 </head>
 <body>
   <div class="container">
@@ -257,28 +287,42 @@ function generateHTML(data) {
       </div>
     </div>
     
-    <div class="controls">
-      <div class="control-group">
-        <label>Symbol</label>
-        <input type="text" id="filterSymbol" placeholder="Filter...">
-      </div>
-      <div class="control-group">
-        <label>Horizon</label>
-        <select id="filterHorizon">
-          <option value="">All</option>
-          <option value="3d">3d</option>
-          <option value="7d">7d</option>
-          <option value="14d">14d</option>
-          <option value="1m">1m</option>
-          <option value="3m">3m</option>
-          <option value="12m">12m</option>
-        </select>
-      </div>
-      <div class="control-group">
-        <label>Date</label>
-        <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
-      </div>
-    </div>
+     <div class="controls">
+       <div class="control-group">
+         <label>Symbol</label>
+         <input type="text" id="filterSymbol" placeholder="Filter...">
+       </div>
+       <div class="control-group">
+         <label>Horizon</label>
+         <select id="filterHorizon">
+           <option value="">All</option>
+           <option value="3d">3d</option>
+           <option value="7d">7d</option>
+           <option value="14d">14d</option>
+           <option value="1m">1m</option>
+           <option value="3m">3m</option>
+           <option value="12m">12m</option>
+         </select>
+       </div>
+       <div class="control-group">
+         <label>Date</label>
+         <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
+       </div>
+       <div class="control-group">
+         <label>Column Visibility</label>
+         <div class="checkbox-group">
+           <label class="checkbox-label">
+             <input type="checkbox" id="togglePredictability" checked> Predictability
+           </label>
+           <label class="checkbox-label">
+             <input type="checkbox" id="toggleAV" checked> AV Data
+           </label>
+           <label class="checkbox-label">
+             <input type="checkbox" id="toggleYHPrices" checked> YH Prices
+           </label>
+         </div>
+       </div>
+     </div>
     
     <div class="table-wrapper">
       <table id="dataTable">
@@ -323,11 +367,150 @@ function generateHTML(data) {
     const withAV = rawData.filter(d => d.performance.av !== null).length;
     const withYH = rawData.filter(d => d.performance.yh !== null).length;
     
-    document.getElementById('totalRecords').textContent = rawData.length;
-    document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
-    document.getElementById('withAV').textContent = withAV;
-    document.getElementById('withYH').textContent = withYH;
-    
+     document.getElementById('totalRecords').textContent = rawData.length;
+     document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
+     document.getElementById('withAV').textContent = withAV;
+     document.getElementById('withYH').textContent = withYH;
+     
+     // Column configuration and visibility
+     const columnConfig = {
+       predictability: {
+         name: 'predictability',
+         checkboxId: 'togglePredictability',
+         headerSelector: 'th[data-field="predictability"]',
+         cellSelector: 'td:nth-child(5)',
+         defaultVisible: true,
+         visible: true
+       },
+       av: {
+         name: 'av',
+         checkboxId: 'toggleAV',
+         headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
+         cellSelector: 'td:nth-child(8), td:nth-child(9)',
+         defaultVisible: true,
+         visible: true
+       },
+       yh_prices: {
+         name: 'yh_prices',
+         checkboxId: 'toggleYHPrices',
+         headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
+         cellSelector: 'td:nth-child(10), td:nth-child(11)',
+         defaultVisible: true,
+         visible: true
+       }
+     };
+     
+     // Column visibility functions
+     function saveColumnVisibility() {
+       const visibility = {};
+       Object.keys(columnConfig).forEach(key => {
+         visibility[key] = columnConfig[key].visible;
+       });
+       localStorage.setItem('columnVisibility', JSON.stringify(visibility));
+     }
+     
+     function loadColumnVisibility() {
+       const saved = localStorage.getItem('columnVisibility');
+       if (saved) {
+         const visibility = JSON.parse(saved);
+         Object.keys(visibility).forEach(key => {
+           if (columnConfig[key]) {
+             columnConfig[key].visible = visibility[key];
+           }
+         });
+       }
+     }
+     
+     function applyColumnVisibility() {
+       const table = document.getElementById('dataTable');
+       Object.keys(columnConfig).forEach(key => {
+         const config = columnConfig[key];
+         const headers = table.querySelectorAll(config.headerSelector);
+         const cells = table.querySelectorAll(config.cellSelector);
+         
+         if (config.visible) {
+           headers.forEach(h => h.classList.remove('hidden'));
+           cells.forEach(c => c.classList.remove('hidden'));
+         } else {
+           headers.forEach(h => h.classList.add('hidden'));
+           cells.forEach(c => c.classList.add('hidden'));
+         }
+       });
+     }
+     
+     function toggleColumnVisibility(columnName) {
+       if (columnConfig[columnName]) {
+         columnConfig[columnName].visible = !columnConfig[columnName].visible;
+         applyColumnVisibility();
+         saveColumnVisibility();
+         
+         // Update checkbox state
+         const checkbox = document.getElementById(columnConfig[columnName].checkboxId);
+         if (checkbox) {
+           checkbox.checked = columnConfig[columnName].visible;
+         }
+       }
+     }
+     
+     function initializeColumnVisibility() {
+       loadColumnVisibility();
+       applyColumnVisibility();
+       
+       // Set checkbox states
+       Object.keys(columnConfig).forEach(key => {
+         const config = columnConfig[key];
+         const checkbox = document.getElementById(config.checkboxId);
+         if (checkbox) {
+           checkbox.checked = config.visible;
+         }
+       });
+     }
+     
+     // Sort state persistence
+     function saveSortState() {
+       localStorage.setItem('sortState', JSON.stringify({
+         field: sortField,
+         direction: sortDir
+       }));
+     }
+     
+      function applySortToData(field) {
+        filteredData.sort((a, b) => {
+          let aVal, bVal;
+          
+          if (field === 'date') { aVal = a.date; bVal = b.date; }
+          else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
+          else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
+          else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
+          else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
+          else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
+          else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
+          else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
+          else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
+          else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
+          else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
+          
+          if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+          if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+      
+      function loadSortState() {
+        const saved = localStorage.getItem('sortState');
+        if (saved) {
+          const state = JSON.parse(saved);
+          sortField = state.field;
+          sortDir = state.direction;
+          applySortToData(sortField);
+        }
+      }
+      
+      function initializeSortState() {
+        loadSortState();
+        updateSortIndicators();
+      }
+     
     // Format value
     function formatValue(val) {
       if (val === null || val === undefined) return '-';
@@ -428,30 +611,33 @@ function generateHTML(data) {
       }
     }
 
-    // Update row data after successful fetch
-    function updateRowData(symbol, horizon, startDate, newData, fromCache) {
-      // Find the row in rawData that matches
-      const rowIndex = rawData.findIndex(row => 
-        row.symbol === symbol && 
-        row.horizon === horizon && 
-        row.date === startDate
-      );
-      
-      if (rowIndex !== -1) {
-        // Update the performance data
-        rawData[rowIndex].performance.yh = {
-          'open-price': newData['open-price'],
-          'close-price': newData['close-price'],
-          'change-abs': newData['change-abs'],
-          'change-percentage': newData['change-percentage']
-        };
-        
-        // Re-apply filters to update filteredData
-        applyFilters();
-        
-        console.log(\`Updated \${symbol} \${horizon} \${startDate} with Yahoo data\${fromCache ? ' (from cache)' : ''}\`);
-      }
-    }
+     // Update row data after successful fetch
+     function updateRowData(symbol, horizon, startDate, newData, fromCache) {
+       // Find the row in rawData that matches
+       const rowIndex = rawData.findIndex(row => 
+         row.symbol === symbol && 
+         row.horizon === horizon && 
+         row.date === startDate
+       );
+       
+       if (rowIndex !== -1) {
+         // Update the performance data
+         rawData[rowIndex].performance.yh = {
+           'open-price': newData['open-price'],
+           'close-price': newData['close-price'],
+           'change-abs': newData['change-abs'],
+           'change-percentage': newData['change-percentage']
+         };
+         
+         // Refresh table without resetting pagination
+         refreshTable();
+         
+         // Re-apply column visibility after rendering new table
+         applyColumnVisibility();
+         
+         console.log(\`Updated \${symbol} \${horizon} \${startDate} with Yahoo data\${fromCache ? ' (from cache)' : ''}\`);
+       }
+     }
     
     // Make functions globally available
     window.copyToClipboard = copyToClipboard;
@@ -481,34 +667,35 @@ function generateHTML(data) {
     }
     
     // Build table
-    function renderTable() {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '';
-      
-      const start = (currentPage - 1) * pageSize;
-      const end = start + pageSize;
-      const pageData = filteredData.slice(start, end);
-      
-      pageData.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = \`
-          <td>\${row.date}</td>
-          <td>\${row.symbol}</td>
-          <td>\${row.horizon}</td>
-          <td class="number">\${formatWithColor(row.prediction.signal)}</td>
-          <td class="number">\${formatValue(row.prediction.predictability)}</td>
-          <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
-          <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
-          <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
-          <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
-          <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
-          <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
-        \`;
-        tbody.appendChild(tr);
-      });
-      
-      updatePagination();
-    }
+     function renderTable() {
+       const tbody = document.getElementById('tableBody');
+       tbody.innerHTML = '';
+       
+       const start = (currentPage - 1) * pageSize;
+       const end = start + pageSize;
+       const pageData = filteredData.slice(start, end);
+       
+       pageData.forEach(row => {
+         const tr = document.createElement('tr');
+         tr.innerHTML = \`
+           <td>\${row.date}</td>
+           <td>\${row.symbol}</td>
+           <td>\${row.horizon}</td>
+           <td class="number">\${formatWithColor(row.prediction.signal)}</td>
+           <td class="number">\${formatValue(row.prediction.predictability)}</td>
+           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
+           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
+           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
+           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
+           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
+           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
+         \`;
+         tbody.appendChild(tr);
+       });
+       
+       updatePagination();
+       applyColumnVisibility();
+     }
     
     // Filter data
     function applyFilters() {
@@ -527,39 +714,27 @@ function generateHTML(data) {
       renderTable();
     }
     
-    // Sort
-    function sortData(field) {
-      if (sortField === field) {
-        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-      } else {
-        sortField = field;
-        sortDir = 'asc';
-      }
-      
-      filteredData.sort((a, b) => {
-        let aVal, bVal;
-        
-        if (field === 'date') { aVal = a.date; bVal = b.date; }
-        else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
-        else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
-        else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
-        else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
-        else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
-        else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
-        else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
-        else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
-        else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
-        else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
-        
-        if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
-        if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
-        return 0;
-      });
-      
-      currentPage = 1;
-      updateSortIndicators();
+    // Refresh table without resetting filters or pagination
+    function refreshTable() {
       renderTable();
     }
+    
+     // Sort
+      function sortData(field) {
+        if (sortField === field) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortField = field;
+          sortDir = 'asc';
+        }
+        
+        saveSortState();
+        applySortToData(field);
+        
+        currentPage = 1;
+        updateSortIndicators();
+        renderTable();
+      }
     
     // Update sort indicators
     function updateSortIndicators() {
@@ -595,18 +770,34 @@ function generateHTML(data) {
       }
     }
     
-    // Event listeners
-    document.getElementById('filterSymbol').addEventListener('input', applyFilters);
-    document.getElementById('filterHorizon').addEventListener('change', applyFilters);
-    document.getElementById('filterDate').addEventListener('input', applyFilters);
-    
-    document.querySelectorAll('th.sortable').forEach(th => {
-      th.addEventListener('click', () => sortData(th.dataset.field));
-    });
-    
-    // Initial render
-    renderTable();
-  </script>
+     // Event listeners
+     document.getElementById('filterSymbol').addEventListener('input', applyFilters);
+     document.getElementById('filterHorizon').addEventListener('change', applyFilters);
+     document.getElementById('filterDate').addEventListener('input', applyFilters);
+     
+     document.querySelectorAll('th.sortable').forEach(th => {
+       th.addEventListener('click', () => sortData(th.dataset.field));
+     });
+     
+     // Column visibility event listeners
+     document.getElementById('togglePredictability').addEventListener('change', () => {
+       toggleColumnVisibility('predictability');
+     });
+     
+     document.getElementById('toggleAV').addEventListener('change', () => {
+       toggleColumnVisibility('av');
+     });
+     
+     document.getElementById('toggleYHPrices').addEventListener('change', () => {
+       toggleColumnVisibility('yh_prices');
+     });
+     
+     // Initial render
+     initializeColumnVisibility();
+     initializeSortState();
+     renderTable();
+     applyColumnVisibility();
+   </script>
 </body>
 </html>`;
 }
