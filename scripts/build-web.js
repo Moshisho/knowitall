@@ -474,19 +474,42 @@ function generateHTML(data) {
        }));
      }
      
-     function loadSortState() {
-       const saved = localStorage.getItem('sortState');
-       if (saved) {
-         const state = JSON.parse(saved);
-         sortField = state.field;
-         sortDir = state.direction;
-       }
-     }
-     
-     function initializeSortState() {
-       loadSortState();
-       updateSortIndicators();
-     }
+      function applySortToData(field) {
+        filteredData.sort((a, b) => {
+          let aVal, bVal;
+          
+          if (field === 'date') { aVal = a.date; bVal = b.date; }
+          else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
+          else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
+          else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
+          else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
+          else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
+          else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
+          else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
+          else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
+          else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
+          else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
+          
+          if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+          if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+      
+      function loadSortState() {
+        const saved = localStorage.getItem('sortState');
+        if (saved) {
+          const state = JSON.parse(saved);
+          sortField = state.field;
+          sortDir = state.direction;
+          applySortToData(sortField);
+        }
+      }
+      
+      function initializeSortState() {
+        loadSortState();
+        updateSortIndicators();
+      }
      
     // Format value
     function formatValue(val) {
@@ -588,30 +611,33 @@ function generateHTML(data) {
       }
     }
 
-    // Update row data after successful fetch
-    function updateRowData(symbol, horizon, startDate, newData, fromCache) {
-      // Find the row in rawData that matches
-      const rowIndex = rawData.findIndex(row => 
-        row.symbol === symbol && 
-        row.horizon === horizon && 
-        row.date === startDate
-      );
-      
-      if (rowIndex !== -1) {
-        // Update the performance data
-        rawData[rowIndex].performance.yh = {
-          'open-price': newData['open-price'],
-          'close-price': newData['close-price'],
-          'change-abs': newData['change-abs'],
-          'change-percentage': newData['change-percentage']
-        };
-        
-        // Re-apply filters to update filteredData
-        applyFilters();
-        
-        console.log(\`Updated \${symbol} \${horizon} \${startDate} with Yahoo data\${fromCache ? ' (from cache)' : ''}\`);
-      }
-    }
+     // Update row data after successful fetch
+     function updateRowData(symbol, horizon, startDate, newData, fromCache) {
+       // Find the row in rawData that matches
+       const rowIndex = rawData.findIndex(row => 
+         row.symbol === symbol && 
+         row.horizon === horizon && 
+         row.date === startDate
+       );
+       
+       if (rowIndex !== -1) {
+         // Update the performance data
+         rawData[rowIndex].performance.yh = {
+           'open-price': newData['open-price'],
+           'close-price': newData['close-price'],
+           'change-abs': newData['change-abs'],
+           'change-percentage': newData['change-percentage']
+         };
+         
+         // Refresh table without resetting pagination
+         refreshTable();
+         
+         // Re-apply column visibility after rendering new table
+         applyColumnVisibility();
+         
+         console.log(\`Updated \${symbol} \${horizon} \${startDate} with Yahoo data\${fromCache ? ' (from cache)' : ''}\`);
+       }
+     }
     
     // Make functions globally available
     window.copyToClipboard = copyToClipboard;
@@ -641,34 +667,35 @@ function generateHTML(data) {
     }
     
     // Build table
-    function renderTable() {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '';
-      
-      const start = (currentPage - 1) * pageSize;
-      const end = start + pageSize;
-      const pageData = filteredData.slice(start, end);
-      
-      pageData.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = \`
-          <td>\${row.date}</td>
-          <td>\${row.symbol}</td>
-          <td>\${row.horizon}</td>
-          <td class="number">\${formatWithColor(row.prediction.signal)}</td>
-          <td class="number">\${formatValue(row.prediction.predictability)}</td>
-          <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
-          <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
-          <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
-          <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
-          <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
-          <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
-        \`;
-        tbody.appendChild(tr);
-      });
-      
-      updatePagination();
-    }
+     function renderTable() {
+       const tbody = document.getElementById('tableBody');
+       tbody.innerHTML = '';
+       
+       const start = (currentPage - 1) * pageSize;
+       const end = start + pageSize;
+       const pageData = filteredData.slice(start, end);
+       
+       pageData.forEach(row => {
+         const tr = document.createElement('tr');
+         tr.innerHTML = \`
+           <td>\${row.date}</td>
+           <td>\${row.symbol}</td>
+           <td>\${row.horizon}</td>
+           <td class="number">\${formatWithColor(row.prediction.signal)}</td>
+           <td class="number">\${formatValue(row.prediction.predictability)}</td>
+           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
+           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
+           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
+           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
+           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
+           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
+         \`;
+         tbody.appendChild(tr);
+       });
+       
+       updatePagination();
+       applyColumnVisibility();
+     }
     
     // Filter data
     function applyFilters() {
@@ -687,41 +714,27 @@ function generateHTML(data) {
       renderTable();
     }
     
-    // Sort
-     function sortData(field) {
-       if (sortField === field) {
-         sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-       } else {
-         sortField = field;
-         sortDir = 'asc';
-       }
-       
-       saveSortState();
-       
-       filteredData.sort((a, b) => {
-         let aVal, bVal;
-         
-         if (field === 'date') { aVal = a.date; bVal = b.date; }
-         else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
-         else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
-         else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
-         else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
-         else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
-         else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
-         else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
-         else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
-         else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
-         else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
-         
-         if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
-         if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
-         return 0;
-       });
-       
-       currentPage = 1;
-       updateSortIndicators();
-       renderTable();
-     }
+    // Refresh table without resetting filters or pagination
+    function refreshTable() {
+      renderTable();
+    }
+    
+     // Sort
+      function sortData(field) {
+        if (sortField === field) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortField = field;
+          sortDir = 'asc';
+        }
+        
+        saveSortState();
+        applySortToData(field);
+        
+        currentPage = 1;
+        updateSortIndicators();
+        renderTable();
+      }
     
     // Update sort indicators
     function updateSortIndicators() {
@@ -783,6 +796,7 @@ function generateHTML(data) {
      initializeColumnVisibility();
      initializeSortState();
      renderTable();
+     applyColumnVisibility();
    </script>
 </body>
 </html>`;

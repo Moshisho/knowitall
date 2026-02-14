@@ -480,5 +480,59 @@
     "close-price": 61.95,
     "change-abs": -3.2,
     "change-percentage": -4.91
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "CVNA",
+    "horizon": "7d",
+    "open-price": 238.2,
+    "close-price": 238.93,
+    "change-abs": 0.73,
+    "change-percentage": 0.31
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "TWLO",
+    "horizon": "7d",
+    "open-price": 80.5,
+    "close-price": 90.3,
+    "change-abs": 9.8,
+    "change-percentage": 12.17
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "IBP",
+    "horizon": "1m",
+    "open-price": 247.24,
+    "close-price": 175.25,
+    "change-abs": -71.99,
+    "change-percentage": -29.12
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "TARS",
+    "horizon": "7d",
+    "open-price": 44.38,
+    "close-price": 46.8,
+    "change-abs": 2.42,
+    "change-percentage": 5.45
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "XPO",
+    "horizon": "7d",
+    "open-price": 135,
+    "close-price": 151.72,
+    "change-abs": 16.72,
+    "change-percentage": 12.39
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "CROX",
+    "horizon": "3d",
+    "open-price": 109.56,
+    "close-price": 106.21,
+    "change-abs": -3.35,
+    "change-percentage": -3.06
   }
 ]
