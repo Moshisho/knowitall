@@ -1,6 +1,52 @@
 # knowitall
 A project to highlight best symbols from signals
 
+## Architecture Overview
+
+### Data Flow
+The application uses a **dynamic data loading architecture**:
+
+```
+Build Time:
+  ├─ build-web.js
+  │  └─ Generates lightweight HTML (no embedded data)
+  └─ Creates index.html with empty table
+
+Runtime:
+  ├─ User visits http://localhost:3000
+  ├─ Browser loads HTML
+  ├─ JavaScript calls /api/get-all-data
+  ├─ Server aggregates current data from JSON files
+  ├─ Browser receives fresh data and renders table
+  └─ When user fetches → data updates on disk → page shows latest
+```
+
+**Key Benefits:**
+- ✅ Always shows current data (no stale snapshots)
+- ✅ No rebuild needed after fetches
+- ✅ Data updates reflected immediately
+- ✅ Efficient: only aggregates what's needed
+- ✅ Lighter HTML file (no embedded data)
+
+### API Endpoints
+
+#### GET `/api/get-all-data`
+Returns all aggregated data (predictions + performance)
+```
+Response: [{
+  date, symbol, horizon,
+  prediction: { signal, predictability },
+  performance: { av: {...}, yh: {...} }
+}]
+```
+
+#### POST `/api/fetch-yahoo`
+Fetches fresh Yahoo Finance data and saves it
+```
+Request: { symbol, horizon, startDate }
+Response: { success, data, fromCache }
+```
+
 ## Parser
 - Node.js parser for IKF Excel files using fixed layout.
 - Extracts per-symbol predictions: `date`, `horizon (3d/7d/14d/1m/3m/12m)`, `signal`, `predictability`.
@@ -54,3 +100,46 @@ A project to highlight best symbols from signals
   - **Long horizons** (1M, 3M, 12M): Uses 5-year historical range for monthly data
 
 **Note**: Both fetchers check for existing data before attempting to fetch to avoid duplicates.
+
+## Web UI
+
+### Features
+- **Dynamic data loading**: Data loads from server on page load
+- **Live search & filter**: By symbol, horizon, and date
+- **Sortable columns**: Click headers to sort
+- **Pagination**: Navigate through results (50 per page)
+- **Column visibility controls**: Toggle visibility of:
+  - **Predictability**: IKF prediction reliability score
+  - **S&P**: S&P 500 performance for comparison (hidden by default)
+  - **AV Data**: Alpha Vantage performance metrics
+  - **YH Prices**: Yahoo Finance open/close prices
+
+### S&P 500 Special Feature
+- When viewing a symbol's data, the S&P column shows S&P 500's performance for the same horizon and date
+- Useful for comparing individual stock performance against market baseline
+- Matches by: same date, same horizon, same performance source (Yahoo Finance)
+
+### Persistence
+- **Column visibility**: Saved to localStorage, persists across page reloads
+- **Sort state**: Saved to localStorage, persists across page reloads
+
+### Running the Web Server
+```bash
+npm start                 # Builds and starts server
+npm run serve:web        # Start server without build
+npm run build:web        # Build HTML only
+```
+
+Open `http://localhost:3000` in your browser.
+
+## Symbol Mapping
+
+### S&P 500 Special Handling
+The symbol `^S&P500` is mapped to `^GSPC` when fetching from Yahoo Finance:
+- Displayed to users as: `^S&P500` (user-friendly)
+- Fetched from Yahoo as: `^GSPC` (technical symbol)
+- Mapping happens automatically in fetchers
+
+Files involved:
+- `scripts/yahoo_fetcher.js`: `normalizeSymbol()` function
+- `scripts/av_fetcher.js`: `normalizeSymbol()` function

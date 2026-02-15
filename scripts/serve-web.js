@@ -14,6 +14,7 @@ import {
   parseDate, 
   formatDate 
 } from './yahoo_fetcher.js';
+import { aggregateSymbolData } from './aggregator.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WEB_DIR = path.resolve(__dirname, '../clients/web');
@@ -162,6 +163,21 @@ async function handleYahooFetch(req, res) {
   });
 }
 
+// Handle get all data API
+function handleGetAllData(req, res) {
+  try {
+    const data = aggregateSymbolData();
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(data));
+  } catch (error) {
+    console.error('Get all data error:', error.message);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ 
+      error: error.message 
+    }));
+  }
+}
+
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
@@ -169,6 +185,11 @@ const server = http.createServer((req, res) => {
   // API Routes
   if (pathname === '/api/fetch-yahoo') {
     handleYahooFetch(req, res);
+    return;
+  }
+
+  if (pathname === '/api/get-all-data') {
+    handleGetAllData(req, res);
     return;
   }
 

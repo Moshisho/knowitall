@@ -1,14 +1,12 @@
-// Build script: generates static HTML with embedded aggregated data
+// Build script: generates static HTML with dynamically loaded data
 
 import fs from 'fs';
 import path from 'path';
-import { aggregateSymbolData } from './aggregator.js';
 
 const OUTPUT_PATH = path.resolve('clients/web/index.html');
 
-function generateHTML(data) {
-  const jsonData = JSON.stringify(data, null, 2);
-  
+function generateHTML() {
+  // No longer embedding data - it will be loaded dynamically from the server
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -287,60 +285,73 @@ function generateHTML(data) {
       </div>
     </div>
     
-     <div class="controls">
-       <div class="control-group">
-         <label>Symbol</label>
-         <input type="text" id="filterSymbol" placeholder="Filter...">
-       </div>
-       <div class="control-group">
-         <label>Horizon</label>
-         <select id="filterHorizon">
-           <option value="">All</option>
-           <option value="3d">3d</option>
-           <option value="7d">7d</option>
-           <option value="14d">14d</option>
-           <option value="1m">1m</option>
-           <option value="3m">3m</option>
-           <option value="12m">12m</option>
-         </select>
-       </div>
-       <div class="control-group">
-         <label>Date</label>
-         <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
-       </div>
-       <div class="control-group">
-         <label>Column Visibility</label>
-         <div class="checkbox-group">
-           <label class="checkbox-label">
-             <input type="checkbox" id="togglePredictability" checked> Predictability
-           </label>
-           <label class="checkbox-label">
-             <input type="checkbox" id="toggleAV" checked> AV Data
-           </label>
-           <label class="checkbox-label">
-             <input type="checkbox" id="toggleYHPrices" checked> YH Prices
-           </label>
+      <div class="controls">
+        <div class="control-group">
+          <label>Symbol</label>
+          <select id="filterSymbol">
+            <option value="">All</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Horizon</label>
+          <select id="filterHorizon">
+            <option value="">All</option>
+            <option value="3d">3d</option>
+            <option value="7d">7d</option>
+            <option value="14d">14d</option>
+            <option value="1m">1m</option>
+            <option value="3m">3m</option>
+            <option value="12m">12m</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Date</label>
+          <select id="filterDate">
+            <option value="">All</option>
+          </select>
+        </div>
+         <div class="control-group">
+           <label>Column Visibility</label>
+           <div class="checkbox-group">
+             <label class="checkbox-label">
+               <input type="checkbox" id="togglePredictability" checked> Predictability
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleSP"> S&P
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleAV" checked> AV Data
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleYHPrices" checked> YH Prices
+             </label>
+           </div>
          </div>
-       </div>
-     </div>
+         <div class="control-group">
+           <label>&nbsp;</label>
+           <button id="fetchAllBtn" onclick="fetchAllData()" style="background: #2196F3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">⬇️ Fetch All Data</button>
+         </div>
+      </div>
     
     <div class="table-wrapper">
       <table id="dataTable">
-        <thead>
-          <tr>
-            <th class="sortable" data-field="date">Date</th>
-            <th class="sortable" data-field="symbol">Symbol</th>
-            <th class="sortable" data-field="horizon">Horizon</th>
-            <th class="sortable" data-field="signal">Signal</th>
-            <th class="sortable" data-field="predictability">Predictability</th>
-            <th class="sortable" data-field="yh-change-pct">YH Change %</th>
-            <th class="sortable" data-field="yh-change-abs">YH Change \$</th>
-            <th class="sortable" data-field="av-change-pct">AV Change %</th>
-            <th class="sortable" data-field="av-change-abs">AV Change \$</th>
-            <th class="sortable" data-field="yh-open">YH Open</th>
-            <th class="sortable" data-field="yh-close">YH Close</th>
-          </tr>
-        </thead>
+         <thead>
+            <tr>
+              <th class="sortable" data-field="date">Date</th>
+              <th class="sortable" data-field="symbol">Symbol</th>
+              <th class="sortable" data-field="horizon">Horizon</th>
+              <th class="sortable" data-field="signal">Signal</th>
+              <th class="sortable" data-field="predictability">Predictability</th>
+              <th class="sortable" data-field="yh-change-pct">YH %</th>
+              <th class="sortable" data-field="yh-change-abs">YH \$</th>
+              <th class="sortable" data-field="sp-change-pct">S&P A%</th>
+              <th class="sortable" data-field="sp-prediction">S&P P#</th>
+              <th class="sortable" data-field="av-change-pct">AV Change %</th>
+              <th class="sortable" data-field="av-change-abs">AV Change \$</th>
+              <th class="sortable" data-field="yh-open">YH Open</th>
+              <th class="sortable" data-field="yh-close">YH Close</th>
+            </tr>
+         </thead>
         <tbody id="tableBody">
         </tbody>
       </table>
@@ -354,51 +365,115 @@ function generateHTML(data) {
   </div>
 
   <script>
-    const rawData = ${jsonData};
+    let rawData = [];
     
     let currentPage = 1;
     const pageSize = 50;
     let sortField = 'symbol';
     let sortDir = 'asc';
-    let filteredData = [...rawData];
+    let filteredData = [];
     
-    // Calculate stats
-    const uniqueSymbols = new Set(rawData.map(d => d.symbol)).size;
-    const withAV = rawData.filter(d => d.performance.av !== null).length;
-    const withYH = rawData.filter(d => d.performance.yh !== null).length;
-    
-     document.getElementById('totalRecords').textContent = rawData.length;
-     document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
-     document.getElementById('withAV').textContent = withAV;
-     document.getElementById('withYH').textContent = withYH;
-     
-     // Column configuration and visibility
-     const columnConfig = {
-       predictability: {
-         name: 'predictability',
-         checkboxId: 'togglePredictability',
-         headerSelector: 'th[data-field="predictability"]',
-         cellSelector: 'td:nth-child(5)',
-         defaultVisible: true,
-         visible: true
-       },
-       av: {
-         name: 'av',
-         checkboxId: 'toggleAV',
-         headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
-         cellSelector: 'td:nth-child(8), td:nth-child(9)',
-         defaultVisible: true,
-         visible: true
-       },
-       yh_prices: {
-         name: 'yh_prices',
-         checkboxId: 'toggleYHPrices',
-         headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
-         cellSelector: 'td:nth-child(10), td:nth-child(11)',
-         defaultVisible: true,
-         visible: true
+    // Load data dynamically from server on page load
+     async function loadData() {
+       try {
+         console.log('[DEBUG] Starting loadData()...');
+         const response = await fetch('/api/get-all-data');
+         console.log('[DEBUG] Fetch response received:', response.status);
+         if (!response.ok) {
+           throw new Error(\`HTTP \${response.status}: \${response.statusText}\`);
+         }
+         rawData = await response.json();
+         console.log('[DEBUG] rawData loaded, records:', rawData.length);
+         filteredData = [...rawData];
+         console.log('[DEBUG] filteredData initialized');
+         updateStats();
+         console.log('[DEBUG] Stats updated');
+         populateFilterDropdowns();
+         console.log('[DEBUG] Filter dropdowns populated');
+         renderTable();
+         console.log('[DEBUG] Table rendered');
+       } catch (error) {
+         console.error('Failed to load data:', error);
+         document.getElementById('totalRecords').textContent = 'Error loading data';
        }
-     };
+     }
+    
+     // Calculate and update stats
+     function updateStats() {
+       const uniqueSymbols = new Set(rawData.map(d => d.symbol)).size;
+       const withAV = rawData.filter(d => d.performance.av !== null).length;
+       const withYH = rawData.filter(d => d.performance.yh !== null).length;
+       
+       document.getElementById('totalRecords').textContent = rawData.length;
+       document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
+       document.getElementById('withAV').textContent = withAV;
+       document.getElementById('withYH').textContent = withYH;
+     }
+     
+     // Populate filter dropdowns with distinct values
+     function populateFilterDropdowns() {
+       // Get distinct symbols, sorted
+       const symbols = Array.from(new Set(rawData.map(d => d.symbol))).sort();
+       const symbolSelect = document.getElementById('filterSymbol');
+       const currentSymbolValue = symbolSelect.value;
+       symbolSelect.innerHTML = '<option value="">All</option>';
+       symbols.forEach(symbol => {
+         const option = document.createElement('option');
+         option.value = symbol;
+         option.textContent = symbol;
+         symbolSelect.appendChild(option);
+       });
+       symbolSelect.value = currentSymbolValue;
+       
+       // Get distinct dates, sorted
+       const dates = Array.from(new Set(rawData.map(d => d.date))).sort();
+       const dateSelect = document.getElementById('filterDate');
+       const currentDateValue = dateSelect.value;
+       dateSelect.innerHTML = '<option value="">All</option>';
+       dates.forEach(date => {
+         const option = document.createElement('option');
+         option.value = date;
+         option.textContent = date;
+         dateSelect.appendChild(option);
+       });
+       dateSelect.value = currentDateValue;
+     }
+     
+      // Column configuration and visibility
+       const columnConfig = {
+         predictability: {
+           name: 'predictability',
+           checkboxId: 'togglePredictability',
+           headerSelector: 'th[data-field="predictability"]',
+           cellSelector: 'td:nth-child(5)',
+           defaultVisible: true,
+           visible: true
+         },
+         sp: {
+           name: 'sp',
+           checkboxId: 'toggleSP',
+           headerSelector: 'th[data-field="sp-change-pct"], th[data-field="sp-prediction"]',
+           cellSelector: 'td:nth-child(8), td:nth-child(9)',
+           defaultVisible: false,
+           visible: false
+         },
+         av: {
+           name: 'av',
+           checkboxId: 'toggleAV',
+           headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
+           cellSelector: 'td:nth-child(10), td:nth-child(11)',
+           defaultVisible: true,
+           visible: true
+         },
+         yh_prices: {
+           name: 'yh_prices',
+           checkboxId: 'toggleYHPrices',
+           headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
+           cellSelector: 'td:nth-child(12), td:nth-child(13)',
+           defaultVisible: true,
+           visible: true
+         }
+       };
      
      // Column visibility functions
      function saveColumnVisibility() {
@@ -474,27 +549,39 @@ function generateHTML(data) {
        }));
      }
      
-      function applySortToData(field) {
-        filteredData.sort((a, b) => {
-          let aVal, bVal;
-          
-          if (field === 'date') { aVal = a.date; bVal = b.date; }
-          else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
-          else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
-          else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
-          else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
-          else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
-          else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
-          else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
-          else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
-          else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
-          else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
-          
-          if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
-          if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
-          return 0;
-        });
-      }
+       function applySortToData(field) {
+         filteredData.sort((a, b) => {
+           let aVal, bVal;
+           
+           if (field === 'date') { aVal = a.date; bVal = b.date; }
+           else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
+           else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
+           else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
+           else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
+           else if (field === 'sp-change-pct') { 
+             const spA = rawData.find(d => d.symbol === '^S&P500' && d.horizon === a.horizon && d.date === a.date && d.performance.yh);
+             const spB = rawData.find(d => d.symbol === '^S&P500' && d.horizon === b.horizon && d.date === b.date && d.performance.yh);
+             aVal = spA ? spA.performance.yh['change-percentage'] : -999;
+             bVal = spB ? spB.performance.yh['change-percentage'] : -999;
+           }
+           else if (field === 'sp-prediction') {
+             const spA = rawData.find(d => d.symbol === '^S&P500' && d.horizon === a.horizon && d.date === a.date);
+             const spB = rawData.find(d => d.symbol === '^S&P500' && d.horizon === b.horizon && d.date === b.date);
+             aVal = spA ? spA.prediction.signal : -999;
+             bVal = spB ? spB.prediction.signal : -999;
+           }
+           else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
+           else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
+           else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
+           else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
+           else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
+           else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
+           
+           if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+           if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+           return 0;
+         });
+       }
       
       function loadSortState() {
         const saved = localStorage.getItem('sortState');
@@ -637,13 +724,125 @@ function generateHTML(data) {
          
          console.log(\`Updated \${symbol} \${horizon} \${startDate} with Yahoo data\${fromCache ? ' (from cache)' : ''}\`);
        }
+      }
+    
+     // Fetch all missing data
+     async function fetchAllData() {
+       const button = document.getElementById('fetchAllBtn');
+       const originalText = button.innerHTML;
+       button.disabled = true;
+       
+       // Find all records without Yahoo data
+       const recordsToFetch = rawData.filter(r => !r.performance.yh);
+       console.log(\`[FETCH ALL] Found \${recordsToFetch.length} records without Yahoo data out of \${rawData.length} total\`);
+       
+       if (recordsToFetch.length === 0) {
+         button.innerHTML = '✅ All data already loaded';
+         setTimeout(() => {
+           button.innerHTML = originalText;
+           button.disabled = false;
+         }, 2000);
+         return;
+       }
+       
+       let successful = 0;
+       let failed = 0;
+       
+       button.innerHTML = \`⏳ Fetching 0/\${recordsToFetch.length}...\`;
+       
+       // Fetch records sequentially with small delay to avoid overwhelming the server
+       for (let i = 0; i < recordsToFetch.length; i++) {
+         const record = recordsToFetch[i];
+         
+         try {
+           const response = await fetch('/api/fetch-yahoo', {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({
+               symbol: record.symbol,
+               horizon: record.horizon,
+               startDate: record.date
+             })
+           });
+           
+           if (response.ok) {
+             const result = await response.json();
+             if (result.success) {
+               // Only update if we don't already have data (persistent, not cache)
+               const rowIndex = rawData.findIndex(r => 
+                 r.symbol === record.symbol && 
+                 r.horizon === record.horizon && 
+                 r.date === record.date
+               );
+               if (rowIndex !== -1 && !rawData[rowIndex].performance.yh) {
+                 rawData[rowIndex].performance.yh = {
+                   'open-price': result.data['open-price'],
+                   'close-price': result.data['close-price'],
+                   'change-abs': result.data['change-abs'],
+                   'change-percentage': result.data['change-percentage']
+                 };
+               }
+               successful++;
+               console.log(\`[FETCH ALL] (\${i+1}/\${recordsToFetch.length}) ✅ \${record.symbol} \${record.horizon} \${record.date}\`);
+             } else {
+               failed++;
+               console.log(\`[FETCH ALL] (\${i+1}/\${recordsToFetch.length}) ❌ \${record.symbol} - \${result.error}\`);
+             }
+           } else {
+             failed++;
+             console.log(\`[FETCH ALL] (\${i+1}/\${recordsToFetch.length}) ❌ \${record.symbol} - HTTP \${response.status}\`);
+           }
+         } catch (error) {
+           failed++;
+           console.log(\`[FETCH ALL] (\${i+1}/\${recordsToFetch.length}) ❌ \${record.symbol} - \${error.message}\`);
+         }
+         
+         // Update button text with progress
+         button.innerHTML = \`⏳ Fetching \${successful + failed}/\${recordsToFetch.length}...\`;
+         
+         // Small delay between requests
+         await new Promise(resolve => setTimeout(resolve, 100));
+       }
+       
+       // Refresh table and stats
+       updateStats();
+       populateFilterDropdowns();
+       refreshTable();
+       
+       // Show final status
+       button.innerHTML = \`✅ Done: \${successful} successful, \${failed} failed\`;
+       button.style.background = failed === 0 ? '#27ae60' : '#ff9800';
+       
+       setTimeout(() => {
+         button.innerHTML = originalText;
+         button.style.background = '';
+         button.disabled = false;
+       }, 3000);
+       
+       console.log(\`[FETCH ALL] Complete - \${successful} successful, \${failed} failed\`);
      }
-    
-    // Make functions globally available
-    window.copyToClipboard = copyToClipboard;
-    window.fetchYahooData = fetchYahooData;
-    
-    // Format with color or fetch button
+     
+     // Make functions globally available
+      window.copyToClipboard = copyToClipboard;
+      window.fetchYahooData = fetchYahooData;
+      window.fetchAllData = fetchAllData;
+      
+      // Helper function to search for a specific record in the data
+      window.findRecord = (date, symbol, horizon) => {
+        const record = rawData.find(r => r.date === date && r.symbol === symbol && r.horizon === horizon);
+        if (record) {
+          console.log(\`✅ Found \${date} \${symbol} \${horizon}:\`, record);
+          return record;
+        } else {
+          console.log(\`❌ NOT FOUND: \${date} \${symbol} \${horizon}\`);
+          console.log('Available records with this symbol:', rawData.filter(r => r.symbol === symbol).map(r => \`\${r.date} \${r.horizon}\`));
+          return null;
+        }
+      };
+     
+     // Format with color or fetch button
     function formatWithColor(val, isPercent = false, row = null, dataSource = null) {
       if (val === null || val === undefined) {
         if (row && dataSource) {
@@ -666,53 +865,83 @@ function generateHTML(data) {
       return '<span class="' + className + '">' + formatted + suffix + '</span>';
     }
     
-    // Build table
-     function renderTable() {
-       const tbody = document.getElementById('tableBody');
-       tbody.innerHTML = '';
+     // Build table
+       function renderTable() {
+         const tbody = document.getElementById('tableBody');
+         tbody.innerHTML = '';
+         
+         const start = (currentPage - 1) * pageSize;
+         const end = start + pageSize;
+         const pageData = filteredData.slice(start, end);
+         
+         console.log('[DEBUG] renderTable() called - currentPage:', currentPage, 'pageSize:', pageSize, 'start:', start, 'end:', end);
+         console.log('[DEBUG] renderTable() - filteredData.length:', filteredData.length, 'pageData.length:', pageData.length);
+         console.log('[DEBUG] renderTable() - first record on this page:', pageData[0] ? \`\${pageData[0].date} \${pageData[0].symbol} \${pageData[0].horizon}\` : 'NONE');
+        
+         pageData.forEach(row => {
+           const tr = document.createElement('tr');
+           
+           // Find S&P data matching the same horizon and date (for actual performance)
+           const spData = rawData.find(d => 
+             d.symbol === '^S&P500' && 
+             d.horizon === row.horizon && 
+             d.date === row.date &&
+             d.performance.yh
+           );
+           const spChangeValue = spData ? spData.performance.yh['change-percentage'] : null;
+           
+           // Find S&P prediction matching the same horizon and date
+           const spPrediction = rawData.find(d => 
+             d.symbol === '^S&P500' && 
+             d.horizon === row.horizon && 
+             d.date === row.date
+           );
+           const spPredictionValue = spPrediction ? spPrediction.prediction.signal : null;
+           
+           tr.innerHTML = \`
+             <td>\${row.date}</td>
+             <td>\${row.symbol}</td>
+             <td>\${row.horizon}</td>
+             <td class="number">\${formatWithColor(row.prediction.signal)}</td>
+             <td class="number">\${formatValue(row.prediction.predictability)}</td>
+             <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
+             <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
+             <td class="number">\${formatWithColor(spChangeValue, true)}</td>
+             <td class="number">\${formatWithColor(spPredictionValue, false)}</td>
+             <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
+             <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
+             <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
+             <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
+           \`;
+           tbody.appendChild(tr);
+         });
+         
+         updatePagination();
+         applyColumnVisibility();
+       }
+    
+     // Filter data
+     function applyFilters() {
+       const symbol = document.getElementById('filterSymbol').value;
+       const horizon = document.getElementById('filterHorizon').value;
+       const date = document.getElementById('filterDate').value;
        
-       const start = (currentPage - 1) * pageSize;
-       const end = start + pageSize;
-       const pageData = filteredData.slice(start, end);
+       console.log('[DEBUG] applyFilters - before filter:', 'rawData.length:', rawData.length);
+       console.log('[DEBUG] applyFilters - symbol:', symbol, 'horizon:', horizon, 'date:', date);
        
-       pageData.forEach(row => {
-         const tr = document.createElement('tr');
-         tr.innerHTML = \`
-           <td>\${row.date}</td>
-           <td>\${row.symbol}</td>
-           <td>\${row.horizon}</td>
-           <td class="number">\${formatWithColor(row.prediction.signal)}</td>
-           <td class="number">\${formatValue(row.prediction.predictability)}</td>
-           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
-           <td class="number">\${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
-           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
-           <td class="number">\${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
-           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
-           <td class="number">\${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
-         \`;
-         tbody.appendChild(tr);
+       filteredData = rawData.filter(row => {
+         if (symbol && row.symbol !== symbol) return false;
+         if (horizon && row.horizon !== horizon) return false;
+         if (date && row.date !== date) return false;
+         return true;
        });
        
-       updatePagination();
-       applyColumnVisibility();
+       console.log('[DEBUG] applyFilters - after filter:', 'filteredData.length:', filteredData.length);
+       console.log('[DEBUG] First few filtered records:', filteredData.slice(0, 3).map(r => \`\${r.date} \${r.symbol} \${r.horizon}\`));
+       
+       currentPage = 1;
+       renderTable();
      }
-    
-    // Filter data
-    function applyFilters() {
-      const symbol = document.getElementById('filterSymbol').value.toUpperCase();
-      const horizon = document.getElementById('filterHorizon').value;
-      const date = document.getElementById('filterDate').value;
-      
-      filteredData = rawData.filter(row => {
-        if (symbol && !row.symbol.includes(symbol)) return false;
-        if (horizon && row.horizon !== horizon) return false;
-        if (date && row.date !== date) return false;
-        return true;
-      });
-      
-      currentPage = 1;
-      renderTable();
-    }
     
     // Refresh table without resetting filters or pagination
     function refreshTable() {
@@ -771,45 +1000,60 @@ function generateHTML(data) {
     }
     
      // Event listeners
-     document.getElementById('filterSymbol').addEventListener('input', applyFilters);
-     document.getElementById('filterHorizon').addEventListener('change', applyFilters);
-     document.getElementById('filterDate').addEventListener('input', applyFilters);
+      document.getElementById('filterSymbol').addEventListener('change', applyFilters);
+      document.getElementById('filterHorizon').addEventListener('change', applyFilters);
+      document.getElementById('filterDate').addEventListener('change', applyFilters);
      
      document.querySelectorAll('th.sortable').forEach(th => {
        th.addEventListener('click', () => sortData(th.dataset.field));
      });
      
-     // Column visibility event listeners
-     document.getElementById('togglePredictability').addEventListener('change', () => {
-       toggleColumnVisibility('predictability');
-     });
-     
-     document.getElementById('toggleAV').addEventListener('change', () => {
-       toggleColumnVisibility('av');
-     });
-     
-     document.getElementById('toggleYHPrices').addEventListener('change', () => {
-       toggleColumnVisibility('yh_prices');
-     });
-     
-     // Initial render
-     initializeColumnVisibility();
-     initializeSortState();
-     renderTable();
-     applyColumnVisibility();
+      // Column visibility event listeners
+      document.getElementById('togglePredictability').addEventListener('change', () => {
+        toggleColumnVisibility('predictability');
+      });
+      
+      document.getElementById('toggleSP').addEventListener('change', () => {
+        toggleColumnVisibility('sp');
+      });
+      
+      document.getElementById('toggleAV').addEventListener('change', () => {
+        toggleColumnVisibility('av');
+      });
+      
+       document.getElementById('toggleYHPrices').addEventListener('change', () => {
+         toggleColumnVisibility('yh_prices');
+       });
+      
+       // Load data and initialize on page load
+       (async () => {
+         console.log('[DEBUG] Initialization starting...');
+         console.log('[DEBUG] localStorage keys:', Object.keys(localStorage));
+         console.log('[DEBUG] localStorage sortState:', localStorage.getItem('sortState'));
+         console.log('[DEBUG] localStorage columnVisibility:', localStorage.getItem('columnVisibility'));
+         
+         await loadData();
+         console.log('[DEBUG] loadData() completed, rawData.length:', rawData.length);
+         initializeColumnVisibility();
+         console.log('[DEBUG] Column visibility initialized');
+         initializeSortState();
+         console.log('[DEBUG] Sort state initialized, currentPage:', currentPage, 'filteredData.length:', filteredData.length);
+         applyColumnVisibility();
+         console.log('[DEBUG] Column visibility applied');
+         console.log('[DEBUG] Initialization complete');
+       })();
    </script>
 </body>
 </html>`;
 }
 
 function main() {
-  console.log('Generating HTML with aggregated data...');
+  console.log('Generating HTML (data will be loaded dynamically from server)...');
   
-  const data = aggregateSymbolData();
-  const html = generateHTML(data);
+  const html = generateHTML();
   
   fs.writeFileSync(OUTPUT_PATH, html, 'utf8');
-  console.log(`✓ Generated ${OUTPUT_PATH} with ${data.length} records`);
+  console.log(`✓ Generated ${OUTPUT_PATH}`);
 }
 
 main();

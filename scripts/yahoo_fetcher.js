@@ -38,6 +38,14 @@ function isShortHorizon(horizon) {
   return ['3d', '7d', '14d'].includes(horizon.toLowerCase());
 }
 
+function normalizeSymbol(symbol) {
+  // Map ^S&P500 to ^GSPC for Yahoo Finance
+  if (symbol === '^S&P500') {
+    return '^GSPC';
+  }
+  return symbol;
+}
+
 function buildShortHorizonUrl(symbol, startDate, endDate) {
   const period1 = Math.floor(startDate.getTime() / 1000);
   const period2 = Math.floor(endDate.getTime() / 1000);
@@ -49,6 +57,7 @@ function formatDate(date) {
 }
 
 async function fetchYahooData(symbol, startDate, endDate, horizon, browser = null) {
+  const normalizedSymbol = normalizeSymbol(symbol);
   console.log(`Fetching data for ${symbol} (${horizon})...`);
   
   let shouldCloseBrowser = false;
@@ -76,7 +85,7 @@ async function fetchYahooData(symbol, startDate, endDate, horizon, browser = nul
   let url;
   if (isShortHorizon(horizon)) {
     // For short horizons, use specific date range
-    url = buildShortHorizonUrl(symbol, startDate, endDate);
+    url = buildShortHorizonUrl(normalizedSymbol, startDate, endDate);
   } else {
     // For long horizons, use 5-year range with monthly frequency
     const today = new Date();
@@ -84,7 +93,7 @@ async function fetchYahooData(symbol, startDate, endDate, horizon, browser = nul
     fiveYearsAgo.setFullYear(today.getFullYear() - 5);
     const period1 = Math.floor(fiveYearsAgo.getTime() / 1000);
     const period2 = Math.floor(today.getTime() / 1000);
-    url = `https://finance.yahoo.com/quote/${symbol}/history/?frequency=1mo&period1=${period1}&period2=${period2}`;
+    url = `https://finance.yahoo.com/quote/${normalizedSymbol}/history/?frequency=1mo&period1=${period1}&period2=${period2}`;
   }
   
   console.log(`Navigating to: ${url}`);
@@ -397,7 +406,8 @@ export {
   saveSymbolsData,
   parseDate,
   formatDate,
-  isShortHorizon
+  isShortHorizon,
+  normalizeSymbol
 };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
