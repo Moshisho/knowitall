@@ -1299,5 +1299,176 @@
     "close-price": 72.55,
     "change-abs": -66.72,
     "change-percentage": -47.91
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "^S&P500",
+    "horizon": "12m",
+    "open-price": 5623.89,
+    "close-price": 6688.46,
+    "change-abs": 1064.57,
+    "change-percentage": 18.93
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "^S&P500",
+    "horizon": "1m",
+    "open-price": 5623.89,
+    "close-price": 5705.45,
+    "change-abs": 81.56,
+    "change-percentage": 1.45
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "SHOP",
+    "horizon": "1m",
+    "open-price": 73.15,
+    "close-price": 78.21,
+    "change-abs": 5.06,
+    "change-percentage": 6.92
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "DOCU",
+    "horizon": "1m",
+    "open-price": 59.21,
+    "close-price": 69.38,
+    "change-abs": 10.17,
+    "change-percentage": 17.18
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "PLTR",
+    "horizon": "1m",
+    "open-price": 31.35,
+    "close-price": 41.56,
+    "change-abs": 10.21,
+    "change-percentage": 32.57
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "Z",
+    "horizon": "1m",
+    "open-price": 54.87,
+    "close-price": 60.09,
+    "change-abs": 5.22,
+    "change-percentage": 9.51
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "UPST",
+    "horizon": "1m",
+    "open-price": 41.77,
+    "close-price": 48.68,
+    "change-abs": 6.91,
+    "change-percentage": 16.54
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "SWK",
+    "horizon": "1m",
+    "open-price": 101.07,
+    "close-price": 92.94,
+    "change-abs": -8.13,
+    "change-percentage": -8.04
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "UAA",
+    "horizon": "1m",
+    "open-price": 7.65,
+    "close-price": 8.55,
+    "change-abs": 0.9,
+    "change-percentage": 11.76
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "BOOT",
+    "horizon": "1m",
+    "open-price": 131.98,
+    "close-price": 124.55,
+    "change-abs": -7.43,
+    "change-percentage": -5.63
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "APG",
+    "horizon": "1m",
+    "open-price": 23.55,
+    "close-price": 22.76,
+    "change-abs": -0.79,
+    "change-percentage": -3.35
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "CBRE",
+    "horizon": "1m",
+    "open-price": 114.67,
+    "close-price": 130.97,
+    "change-abs": 16.3,
+    "change-percentage": 14.21
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "XPO",
+    "horizon": "1m",
+    "open-price": 113.5,
+    "close-price": 130.53,
+    "change-abs": 17.03,
+    "change-percentage": 15
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "ZBRA",
+    "horizon": "1m",
+    "open-price": 341.46,
+    "close-price": 381.97,
+    "change-abs": 40.51,
+    "change-percentage": 11.86
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "BBWI",
+    "horizon": "1m",
+    "open-price": 30.81,
+    "close-price": 28.38,
+    "change-abs": -2.43,
+    "change-percentage": -7.89
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "ALLY",
+    "horizon": "1m",
+    "open-price": 42.82,
+    "close-price": 35.05,
+    "change-abs": -7.77,
+    "change-percentage": -18.15
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "DOCU",
+    "horizon": "3m",
+    "open-price": 59.21,
+    "close-price": 89.94,
+    "change-abs": 30.73,
+    "change-percentage": 51.9
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "VCEL",
+    "horizon": "1m",
+    "open-price": 51.22,
+    "close-price": 44.04,
+    "change-abs": -7.18,
+    "change-percentage": -14.02
+  },
+  {
+    "date": "2024-09-29",
+    "symbol": "RCKT",
+    "horizon": "1m",
+    "open-price": 18.75,
+    "close-price": 16.65,
+    "change-abs": -2.1,
+    "change-percentage": -11.2
   }
 ]

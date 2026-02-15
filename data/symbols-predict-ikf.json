@@ -1,213 +1,10 @@
 [
   {
     "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "FVRR",
-    "signal": 5.38296779052462,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "CVNA",
-    "signal": 3.6321024873244134,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "TARS",
-    "signal": 1.2107679460681469,
-    "predictability": 0.2
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "XPO",
-    "signal": 1.123545718386284,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "EAT",
-    "signal": 0.6945454278068741,
-    "predictability": 0.23
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "FVRR",
-    "signal": 5.643960168247026,
-    "predictability": 0.31
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "CVNA",
-    "signal": 4.226615426426107,
-    "predictability": 0.28
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "TWLO",
-    "signal": 2.2177521436763534,
-    "predictability": 0.27
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "TARS",
-    "signal": 1.7722835152591714,
-    "predictability": 0.27
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "XPO",
-    "signal": 1.4629023843478552,
-    "predictability": 0.29
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "FVRR",
-    "signal": 5.5787120738164235,
-    "predictability": 0.41
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "TWLO",
-    "signal": 2.680870973679356,
-    "predictability": 0.37
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "TARS",
-    "signal": 2.2416754363797935,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "XPO",
-    "signal": 1.6463384200027589,
-    "predictability": 0.38
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "EAT",
-    "signal": 1.5008567865251994,
-    "predictability": 0.39
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "SHAK",
-    "signal": 0.6420910291305667,
-    "predictability": 0.2
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "TGTX",
-    "signal": 0.5682827596000544,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "OMF",
-    "signal": 0.3709745716193427,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "AXTA",
-    "signal": 0.3643047687814198,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "SNAP",
-    "signal": 1.427307947988091,
-    "predictability": 0.27
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "EAT",
-    "signal": 1.1056843879454261,
-    "predictability": 0.31
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "TGTX",
-    "signal": 0.7577103461334056,
-    "predictability": 0.28
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "SHAK",
-    "signal": 0.7547385781008414,
-    "predictability": 0.27
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "SHOP",
-    "signal": 0.7225292161879959,
-    "predictability": 0.31
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "SNAP",
-    "signal": 1.4528869434717484,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "SHOP",
-    "signal": 1.1960164472218318,
-    "predictability": 0.41
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "SHAK",
-    "signal": 0.8448566172770614,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "TAL",
-    "signal": 0.6552958443437226,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "CCL",
-    "signal": 0.5944684796726379,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
+    "horizon": "12m",
     "symbol": "^S&P500",
-    "signal": -0.07998064822654152,
-    "predictability": 0.29
+    "signal": 39.456297680405605,
+    "predictability": 0.8
   },
   {
     "date": "2024-10-31",
@@ -218,6 +15,13 @@
   },
   {
     "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "^S&P500",
+    "signal": 0.056301586637813934,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-10-31",
     "horizon": "3d",
     "symbol": "^S&P500",
     "signal": -0.10854516545030635,
@@ -225,87 +29,31 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "IBP",
-    "signal": -0.6330791708858954,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "ANF",
-    "signal": -0.7289045237328899,
-    "predictability": 0.24
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "EBAY",
-    "signal": -0.8841600129279157,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "SWK",
-    "signal": -0.9556205424851578,
-    "predictability": 0.24
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "UMC",
-    "signal": -0.9592914978186283,
-    "predictability": 0.21
+    "horizon": "3m",
+    "symbol": "^S&P500",
+    "signal": 0.22239126721936506,
+    "predictability": 0.7
   },
   {
     "date": "2024-10-31",
     "horizon": "7d",
-    "symbol": "ANF",
-    "signal": -0.9103061020374551,
-    "predictability": 0.33
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "EBAY",
-    "signal": -0.9677373275827933,
-    "predictability": 0.28
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "UMC",
-    "signal": -1.0557027036295459,
+    "symbol": "^S&P500",
+    "signal": -0.07998064822654152,
     "predictability": 0.29
   },
   {
     "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "SWK",
-    "signal": -1.0868871005188334,
-    "predictability": 0.33
+    "horizon": "12m",
+    "symbol": "AMSC",
+    "signal": 151.90901943833552,
+    "predictability": 0.78
   },
   {
     "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "LYG",
-    "signal": -1.309765089195258,
-    "predictability": 0.3
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "GE",
-    "signal": -0.8969012666702786,
-    "predictability": 0.42
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "EBAY",
-    "signal": -0.9369456853415228,
-    "predictability": 0.36
+    "horizon": "12m",
+    "symbol": "ANF",
+    "signal": -77.58401585407385,
+    "predictability": 0.77
   },
   {
     "date": "2024-10-31",
@@ -316,59 +64,45 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "SWK",
-    "signal": -1.0501324642694045,
-    "predictability": 0.43
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "UMC",
-    "signal": -1.1135494271160964,
-    "predictability": 0.39
+    "horizon": "1m",
+    "symbol": "ANF",
+    "signal": -1.236828942985673,
+    "predictability": 0.55
   },
   {
     "date": "2024-10-31",
     "horizon": "3d",
-    "symbol": "LYG",
-    "signal": -1.055631564426029,
-    "predictability": 0.22
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "MOD",
-    "signal": -1.2630132077854292,
-    "predictability": 0.21
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "PHG",
-    "signal": -2.0971654550031147,
-    "predictability": 0.23
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "CROX",
-    "signal": -3.893450649387016,
-    "predictability": 0.23
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3d",
-    "symbol": "BOOT",
-    "signal": -5.731230380620544,
+    "symbol": "ANF",
+    "signal": -0.7289045237328899,
     "predictability": 0.24
   },
   {
     "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "ANF",
+    "signal": -1.9294531510576498,
+    "predictability": 0.68
+  },
+  {
+    "date": "2024-10-31",
     "horizon": "7d",
-    "symbol": "MOD",
-    "signal": -1.4650953210310977,
-    "predictability": 0.28
+    "symbol": "ANF",
+    "signal": -0.9103061020374551,
+    "predictability": 0.33
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "ASPN",
+    "signal": -3.307354586575111,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "ASPN",
+    "signal": -3.1682602348032614,
+    "predictability": 0.63
   },
   {
     "date": "2024-10-31",
@@ -379,52 +113,24 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "PHG",
-    "signal": -2.523474498315224,
-    "predictability": 0.32
+    "horizon": "3d",
+    "symbol": "AXTA",
+    "signal": 0.3643047687814198,
+    "predictability": 0.21
   },
   {
     "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "CROX",
-    "signal": -4.0252601765798035,
-    "predictability": 0.31
+    "horizon": "12m",
+    "symbol": "BITF",
+    "signal": -24.954020693718082,
+    "predictability": 0.8
   },
   {
     "date": "2024-10-31",
-    "horizon": "7d",
-    "symbol": "BOOT",
-    "signal": -6.2759340944811735,
-    "predictability": 0.31
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "LYG",
-    "signal": -1.3635241040502872,
-    "predictability": 0.37
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "MOD",
-    "signal": -1.5257199550047982,
-    "predictability": 0.36
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "PHG",
-    "signal": -2.6128618783645368,
-    "predictability": 0.42
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "14d",
-    "symbol": "CROX",
-    "signal": -3.9542858157836873,
-    "predictability": 0.39
+    "horizon": "3m",
+    "symbol": "BITF",
+    "signal": -1.9662988004510353,
+    "predictability": 0.65
   },
   {
     "date": "2024-10-31",
@@ -436,72 +142,93 @@
   {
     "date": "2024-10-31",
     "horizon": "1m",
-    "symbol": "FVRR",
-    "signal": 5.687458897867426,
-    "predictability": 0.53
+    "symbol": "BOOT",
+    "signal": -5.482561293858081,
+    "predictability": 0.48
   },
   {
     "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "TWLO",
-    "signal": 3.7571330434046457,
-    "predictability": 0.5
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "SHOP",
-    "signal": 2.4012566716715957,
-    "predictability": 0.52
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "EAT",
-    "signal": 2.339101268361082,
-    "predictability": 0.5
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "XPO",
-    "signal": 1.852703960114525,
-    "predictability": 0.51
+    "horizon": "3d",
+    "symbol": "BOOT",
+    "signal": -5.731230380620544,
+    "predictability": 0.24
   },
   {
     "date": "2024-10-31",
     "horizon": "3m",
-    "symbol": "FVRR",
-    "signal": 6.4269373014142435,
-    "predictability": 0.65
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "TWLO",
-    "signal": 4.879054716087978,
-    "predictability": 0.66
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "SHOP",
-    "signal": 3.9938955396944973,
+    "symbol": "BOOT",
+    "signal": -2.4866908676246164,
     "predictability": 0.63
   },
   {
     "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "EAT",
-    "signal": 3.5485683064385705,
-    "predictability": 0.65
+    "horizon": "7d",
+    "symbol": "BOOT",
+    "signal": -6.2759340944811735,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "12m",
+    "symbol": "CAMT",
+    "signal": -13.332060376413162,
+    "predictability": 0.79
   },
   {
     "date": "2024-10-31",
     "horizon": "3m",
-    "symbol": "HLNE",
-    "signal": 1.9752866713162727,
-    "predictability": 0.63
+    "symbol": "CAMT",
+    "signal": -0.7876474771230182,
+    "predictability": 0.67
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "CCL",
+    "signal": 0.5944684796726379,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "COIN",
+    "signal": -2.6074775996293806,
+    "predictability": 0.64
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "CROX",
+    "signal": -3.9542858157836873,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "CROX",
+    "signal": -3.7109451501969986,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "CROX",
+    "signal": -3.893450649387016,
+    "predictability": 0.23
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "CROX",
+    "signal": -4.0252601765798035,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "12m",
+    "symbol": "CVLT",
+    "signal": 199.3047296546685,
+    "predictability": 0.75
   },
   {
     "date": "2024-10-31",
@@ -512,10 +239,24 @@
   },
   {
     "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "CVNA",
+    "signal": 3.6321024873244134,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "CVNA",
+    "signal": 4.226615426426107,
+    "predictability": 0.28
+  },
+  {
+    "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "SHOP",
-    "signal": 326.70997046550053,
-    "predictability": 0.75
+    "symbol": "DKNG",
+    "signal": -25.25985620063062,
+    "predictability": 0.76
   },
   {
     "date": "2024-10-31",
@@ -526,66 +267,115 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "TWLO",
-    "signal": 305.80943027994175,
-    "predictability": 0.76
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "TARS",
-    "signal": 268.8233072470914,
-    "predictability": 0.75
+    "horizon": "14d",
+    "symbol": "EAT",
+    "signal": 1.5008567865251994,
+    "predictability": 0.39
   },
   {
     "date": "2024-10-31",
     "horizon": "1m",
-    "symbol": "SNAP",
-    "signal": 1.2789497741828773,
-    "predictability": 0.48
+    "symbol": "EAT",
+    "signal": 2.339101268361082,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "EAT",
+    "signal": 0.6945454278068741,
+    "predictability": 0.23
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "EAT",
+    "signal": 3.5485683064385705,
+    "predictability": 0.65
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "EAT",
+    "signal": 1.1056843879454261,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "EBAY",
+    "signal": -0.9369456853415228,
+    "predictability": 0.36
   },
   {
     "date": "2024-10-31",
     "horizon": "1m",
-    "symbol": "SHAK",
-    "signal": 1.066396796918602,
-    "predictability": 0.48
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "SE",
-    "signal": 0.8674735421812315,
-    "predictability": 0.47
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "MLM",
-    "signal": 0.8069623543797589,
+    "symbol": "EBAY",
+    "signal": -0.6466244870666845,
     "predictability": 0.46
   },
   {
     "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "XPO",
-    "signal": 1.756400041395701,
-    "predictability": 0.66
+    "horizon": "3d",
+    "symbol": "EBAY",
+    "signal": -0.8841600129279157,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "EBAY",
+    "signal": -0.9677373275827933,
+    "predictability": 0.28
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "FVRR",
+    "signal": 5.5787120738164235,
+    "predictability": 0.41
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "FVRR",
+    "signal": 5.687458897867426,
+    "predictability": 0.53
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "FVRR",
+    "signal": 5.38296779052462,
+    "predictability": 0.21
   },
   {
     "date": "2024-10-31",
     "horizon": "3m",
-    "symbol": "PLTR",
-    "signal": 1.624879105495071,
-    "predictability": 0.67
+    "symbol": "FVRR",
+    "signal": 6.4269373014142435,
+    "predictability": 0.65
   },
   {
     "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "SHAK",
-    "signal": 1.4982124013046558,
-    "predictability": 0.66
+    "horizon": "7d",
+    "symbol": "FVRR",
+    "signal": 5.643960168247026,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "GE",
+    "signal": -0.8969012666702786,
+    "predictability": 0.42
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "GE",
+    "signal": -0.922166091083526,
+    "predictability": 0.54
   },
   {
     "date": "2024-10-31",
@@ -603,59 +393,10 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "CVLT",
-    "signal": 199.3047296546685,
-    "predictability": 0.75
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "AMSC",
-    "signal": 151.90901943833552,
-    "predictability": 0.78
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "PLTR",
-    "signal": 148.6487473558522,
-    "predictability": 0.79
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "ZBRA",
-    "signal": 148.09799868028523,
-    "predictability": 0.75
-  },
-  {
-    "date": "2024-10-31",
     "horizon": "3m",
-    "symbol": "^S&P500",
-    "signal": 0.22239126721936506,
-    "predictability": 0.7
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "^S&P500",
-    "signal": 39.456297680405605,
-    "predictability": 0.8
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "^S&P500",
-    "signal": 0.056301586637813934,
-    "predictability": 0.52
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "EBAY",
-    "signal": -0.6466244870666845,
-    "predictability": 0.46
+    "symbol": "HLNE",
+    "signal": 1.9752866713162727,
+    "predictability": 0.63
   },
   {
     "date": "2024-10-31",
@@ -666,66 +407,17 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "SWK",
-    "signal": -0.7140900757031949,
-    "predictability": 0.54
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "GE",
-    "signal": -0.922166091083526,
-    "predictability": 0.54
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "UMC",
-    "signal": -1.118369987406642,
-    "predictability": 0.51
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "NTAP",
-    "signal": -0.7147444142918559,
-    "predictability": 0.68
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "UMC",
-    "signal": -0.7182634832913348,
-    "predictability": 0.65
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "CAMT",
-    "signal": -0.7876474771230182,
-    "predictability": 0.67
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "MU",
-    "signal": -0.8786638294022104,
-    "predictability": 0.62
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "PHG",
-    "signal": -1.3545626053626674,
-    "predictability": 0.68
+    "horizon": "3d",
+    "symbol": "IBP",
+    "signal": -0.6330791708858954,
+    "predictability": 0.21
   },
   {
     "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "LRCX",
-    "signal": -10.735259266161533,
-    "predictability": 0.77
+    "symbol": "IEUR",
+    "signal": -21.21265376487501,
+    "predictability": 0.81
   },
   {
     "date": "2024-10-31",
@@ -737,9 +429,58 @@
   {
     "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "CAMT",
-    "signal": -13.332060376413162,
-    "predictability": 0.79
+    "symbol": "LRCX",
+    "signal": -10.735259266161533,
+    "predictability": 0.77
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "LYG",
+    "signal": -1.3635241040502872,
+    "predictability": 0.37
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "LYG",
+    "signal": -1.055631564426029,
+    "predictability": 0.22
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "LYG",
+    "signal": -1.309765089195258,
+    "predictability": 0.3
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "MLM",
+    "signal": 0.8069623543797589,
+    "predictability": 0.46
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "MOD",
+    "signal": -1.5257199550047982,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "MOD",
+    "signal": -1.2630132077854292,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "MOD",
+    "signal": -1.4650953210310977,
+    "predictability": 0.28
   },
   {
     "date": "2024-10-31",
@@ -750,17 +491,31 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "IEUR",
-    "signal": -21.21265376487501,
-    "predictability": 0.81
+    "horizon": "3m",
+    "symbol": "MU",
+    "signal": -0.8786638294022104,
+    "predictability": 0.62
   },
   {
     "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "ANF",
-    "signal": -1.236828942985673,
-    "predictability": 0.55
+    "horizon": "3m",
+    "symbol": "NTAP",
+    "signal": -0.7147444142918559,
+    "predictability": 0.68
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "OMF",
+    "signal": 0.3709745716193427,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "PHG",
+    "signal": -2.6128618783645368,
+    "predictability": 0.42
   },
   {
     "date": "2024-10-31",
@@ -771,73 +526,122 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "ASPN",
-    "signal": -3.307354586575111,
-    "predictability": 0.47
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "CROX",
-    "signal": -3.7109451501969986,
-    "predictability": 0.47
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "1m",
-    "symbol": "BOOT",
-    "signal": -5.482561293858081,
-    "predictability": 0.48
+    "horizon": "3d",
+    "symbol": "PHG",
+    "signal": -2.0971654550031147,
+    "predictability": 0.23
   },
   {
     "date": "2024-10-31",
     "horizon": "3m",
-    "symbol": "ANF",
-    "signal": -1.9294531510576498,
+    "symbol": "PHG",
+    "signal": -1.3545626053626674,
     "predictability": 0.68
   },
   {
     "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "BITF",
-    "signal": -1.9662988004510353,
-    "predictability": 0.65
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "BOOT",
-    "signal": -2.4866908676246164,
-    "predictability": 0.63
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "COIN",
-    "signal": -2.6074775996293806,
-    "predictability": 0.64
-  },
-  {
-    "date": "2024-10-31",
-    "horizon": "3m",
-    "symbol": "ASPN",
-    "signal": -3.1682602348032614,
-    "predictability": 0.63
+    "horizon": "7d",
+    "symbol": "PHG",
+    "signal": -2.523474498315224,
+    "predictability": 0.32
   },
   {
     "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "BITF",
-    "signal": -24.954020693718082,
-    "predictability": 0.8
+    "symbol": "PLTR",
+    "signal": 148.6487473558522,
+    "predictability": 0.79
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "PLTR",
+    "signal": 1.624879105495071,
+    "predictability": 0.67
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "SE",
+    "signal": 0.8674735421812315,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "SHAK",
+    "signal": 0.8448566172770614,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "SHAK",
+    "signal": 1.066396796918602,
+    "predictability": 0.48
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "SHAK",
+    "signal": 0.6420910291305667,
+    "predictability": 0.2
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "SHAK",
+    "signal": 1.4982124013046558,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "SHAK",
+    "signal": 0.7547385781008414,
+    "predictability": 0.27
   },
   {
     "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "DKNG",
-    "signal": -25.25985620063062,
-    "predictability": 0.76
+    "symbol": "SHOP",
+    "signal": 326.70997046550053,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "SHOP",
+    "signal": 1.1960164472218318,
+    "predictability": 0.41
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "SHOP",
+    "signal": 2.4012566716715957,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "SHOP",
+    "signal": 3.9938955396944973,
+    "predictability": 0.63
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "SHOP",
+    "signal": 0.7225292161879959,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "12m",
+    "symbol": "SLNO",
+    "signal": -111.03183718038264,
+    "predictability": 0.75
   },
   {
     "date": "2024-10-31",
@@ -848,16 +652,1087 @@
   },
   {
     "date": "2024-10-31",
-    "horizon": "12m",
-    "symbol": "ANF",
-    "signal": -77.58401585407385,
-    "predictability": 0.77
+    "horizon": "14d",
+    "symbol": "SNAP",
+    "signal": 1.4528869434717484,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "SNAP",
+    "signal": 1.2789497741828773,
+    "predictability": 0.48
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "SNAP",
+    "signal": 1.427307947988091,
+    "predictability": 0.27
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "SWK",
+    "signal": -1.0501324642694045,
+    "predictability": 0.43
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "SWK",
+    "signal": -0.7140900757031949,
+    "predictability": 0.54
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "SWK",
+    "signal": -0.9556205424851578,
+    "predictability": 0.24
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "SWK",
+    "signal": -1.0868871005188334,
+    "predictability": 0.33
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "TAL",
+    "signal": 0.6552958443437226,
+    "predictability": 0.36
   },
   {
     "date": "2024-10-31",
     "horizon": "12m",
-    "symbol": "SLNO",
-    "signal": -111.03183718038264,
+    "symbol": "TARS",
+    "signal": 268.8233072470914,
     "predictability": 0.75
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "TARS",
+    "signal": 2.2416754363797935,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "TARS",
+    "signal": 1.2107679460681469,
+    "predictability": 0.2
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "TARS",
+    "signal": 1.7722835152591714,
+    "predictability": 0.27
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "TGTX",
+    "signal": 0.5682827596000544,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "TGTX",
+    "signal": 0.7577103461334056,
+    "predictability": 0.28
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "12m",
+    "symbol": "TWLO",
+    "signal": 305.80943027994175,
+    "predictability": 0.76
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "TWLO",
+    "signal": 2.680870973679356,
+    "predictability": 0.37
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "TWLO",
+    "signal": 3.7571330434046457,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "TWLO",
+    "signal": 4.879054716087978,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "TWLO",
+    "signal": 2.2177521436763534,
+    "predictability": 0.27
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "UMC",
+    "signal": -1.1135494271160964,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "UMC",
+    "signal": -1.118369987406642,
+    "predictability": 0.51
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "UMC",
+    "signal": -0.9592914978186283,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "UMC",
+    "signal": -0.7182634832913348,
+    "predictability": 0.65
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "UMC",
+    "signal": -1.0557027036295459,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "14d",
+    "symbol": "XPO",
+    "signal": 1.6463384200027589,
+    "predictability": 0.38
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "1m",
+    "symbol": "XPO",
+    "signal": 1.852703960114525,
+    "predictability": 0.51
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3d",
+    "symbol": "XPO",
+    "signal": 1.123545718386284,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "3m",
+    "symbol": "XPO",
+    "signal": 1.756400041395701,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "7d",
+    "symbol": "XPO",
+    "signal": 1.4629023843478552,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-10-31",
+    "horizon": "12m",
+    "symbol": "ZBRA",
+    "signal": 148.09799868028523,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "^S&P500",
+    "signal": 56.09996227081961,
+    "predictability": 0.79
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "^S&P500",
+    "signal": 0.14482522144769924,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "^S&P500",
+    "signal": 0.22260172926220442,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "^S&P500",
+    "signal": 0.04559312527057198,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "^S&P500",
+    "signal": 0.3432894138019538,
+    "predictability": 0.7
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "^S&P500",
+    "signal": 0.10191404472245502,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "AA",
+    "signal": 0.30227325607342465,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "AEO",
+    "signal": 0.5836363697781257,
+    "predictability": 0.49
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "AEO",
+    "signal": 0.47663636865213604,
+    "predictability": 0.28
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "AEO",
+    "signal": 0.5933636426077612,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "ALLY",
+    "signal": -0.8672178284136208,
+    "predictability": 0.79
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "ALLY",
+    "signal": -0.1805389809797473,
+    "predictability": 0.44
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "ALLY",
+    "signal": -0.4277988897128795,
+    "predictability": 0.57
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "ALLY",
+    "signal": -0.4474226919932868,
+    "predictability": 0.71
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "APG",
+    "signal": -0.12959025470772867,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "APG",
+    "signal": -0.12113871635722463,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "APG",
+    "signal": -0.17466512591041689,
+    "predictability": 0.23
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "APG",
+    "signal": -0.1577620492094088,
+    "predictability": 0.3
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "ARR",
+    "signal": -0.12685325581743098,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "BBWI",
+    "signal": -0.14155305638600238,
+    "predictability": 0.49
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "BBWI",
+    "signal": 0.18378432302945055,
+    "predictability": 0.23
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "BOOT",
+    "signal": 177.42297520666884,
+    "predictability": 0.78
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "BOOT",
+    "signal": 0.5739778968263168,
+    "predictability": 0.49
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "BOOT",
+    "signal": 1.0112943896463678,
+    "predictability": 0.65
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "BTBT",
+    "signal": 209.92997465752813,
+    "predictability": 0.77
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "CBRE",
+    "signal": 132.28021023600652,
+    "predictability": 0.79
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "CBRE",
+    "signal": 0.5583908664478282,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "CBRE",
+    "signal": 1.124835447315577,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "CRVL",
+    "signal": 145.60389445540116,
+    "predictability": 0.74
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "DIS",
+    "signal": -0.21522824705867033,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "DOCU",
+    "signal": 0.604371696594421,
+    "predictability": 0.4
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "DOCU",
+    "signal": 0.852543649302275,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "DOCU",
+    "signal": 1.0831975818189865,
+    "predictability": 0.65
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "DOCU",
+    "signal": 0.4875848953201369,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "EDU",
+    "signal": 2.3837571166229274,
+    "predictability": 0.37
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "EDU",
+    "signal": 2.2857944953918485,
+    "predictability": 0.28
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "EQR",
+    "signal": -0.10918991179854229,
+    "predictability": 0.42
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "EQR",
+    "signal": -0.08145914054811886,
+    "predictability": 0.23
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "EQR",
+    "signal": -0.11785577781429962,
+    "predictability": 0.32
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "ERJ",
+    "signal": -0.08762080952689455,
+    "predictability": 0.43
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "ERJ",
+    "signal": -0.1606381507993067,
+    "predictability": 0.25
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "ERJ",
+    "signal": -0.13873294841758307,
+    "predictability": 0.33
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "ESS",
+    "signal": -0.12225056238867824,
+    "predictability": 0.38
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "ESS",
+    "signal": -0.10156200567674811,
+    "predictability": 0.22
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "ESS",
+    "signal": -0.1410583412177057,
+    "predictability": 0.3
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "FTSL",
+    "signal": -1.4885711059792397,
+    "predictability": 0.78
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "GM",
+    "signal": -0.3303177175038636,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "GM",
+    "signal": -0.22461604790262724,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "GM",
+    "signal": -0.3303177175038636,
+    "predictability": 0.22
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "GM",
+    "signal": -0.3600463120792113,
+    "predictability": 0.3
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "GOOG",
+    "signal": -7.054009889721418,
+    "predictability": 0.78
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "GOOG",
+    "signal": -0.24900933270308265,
+    "predictability": 0.64
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "HRI",
+    "signal": 0.4586692864099265,
+    "predictability": 0.37
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "HRI",
+    "signal": 0.324231736944948,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "IESC",
+    "signal": 0.4301634982815713,
+    "predictability": 0.46
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "IESC",
+    "signal": 0.2058451096071323,
+    "predictability": 0.24
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "IESC",
+    "signal": 0.3958559800137159,
+    "predictability": 0.34
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "IIPR",
+    "signal": 159.6382730391938,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "JCI",
+    "signal": 0.39563674180694636,
+    "predictability": 0.37
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "JCI",
+    "signal": 0.1639810179857738,
+    "predictability": 0.25
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "JLL",
+    "signal": 132.6841164476425,
+    "predictability": 0.77
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "KSS",
+    "signal": 0.4615116040472631,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "KSS",
+    "signal": 0.5305566471724442,
+    "predictability": 0.27
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "LII",
+    "signal": -0.11862290429364068,
+    "predictability": 0.24
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "LII",
+    "signal": -0.08589934448849842,
+    "predictability": 0.34
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "LRCX",
+    "signal": -0.29052867443333963,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "MHK",
+    "signal": 148.8835412120848,
+    "predictability": 0.77
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "MHK",
+    "signal": 1.1718278162757494,
+    "predictability": 0.68
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "MKSI",
+    "signal": -18.584086645464208,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "MSTR",
+    "signal": 244.13238315039544,
+    "predictability": 0.78
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "MU",
+    "signal": -9.274160133397448,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "NVMI",
+    "signal": -48.58938814126574,
+    "predictability": 0.76
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "NVMI",
+    "signal": -0.2333091589339614,
+    "predictability": 0.46
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "NVMI",
+    "signal": -0.4714454039148323,
+    "predictability": 0.65
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "OXLC",
+    "signal": -0.1278062659689844,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "PLTR",
+    "signal": 187.04314889570065,
+    "predictability": 0.78
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "PLTR",
+    "signal": 0.8573951505036191,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "PLTR",
+    "signal": 1.667017550685922,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "RCKT",
+    "signal": -0.25828770816673374,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "SHOP",
+    "signal": 0.9979849960598517,
+    "predictability": 0.4
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "SHOP",
+    "signal": 1.7127073334636178,
+    "predictability": 0.52
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "SHOP",
+    "signal": 0.3001458634766472,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "SHOP",
+    "signal": 2.478079285329068,
+    "predictability": 0.63
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "SHOP",
+    "signal": 0.6659486345888107,
+    "predictability": 0.3
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "SLG",
+    "signal": -0.0706137120662434,
+    "predictability": 0.38
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "SLG",
+    "signal": -0.12161250411408583,
+    "predictability": 0.24
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "SLG",
+    "signal": -0.11572802810856556,
+    "predictability": 0.31
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "SNAP",
+    "signal": -115.37986943566902,
+    "predictability": 0.79
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "SNAP",
+    "signal": -1.0637147715128845,
+    "predictability": 0.68
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "STNE",
+    "signal": -0.1804053126114876,
+    "predictability": 0.42
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "STNE",
+    "signal": -0.2783396251720094,
+    "predictability": 0.54
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "STNE",
+    "signal": -0.42610016692998975,
+    "predictability": 0.66
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "STNE",
+    "signal": -0.12542464591084376,
+    "predictability": 0.32
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "SWK",
+    "signal": 0.44489288722132203,
+    "predictability": 0.44
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "SWK",
+    "signal": 0.7143350583553622,
+    "predictability": 0.55
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "SWK",
+    "signal": 0.16500722108208662,
+    "predictability": 0.24
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "SWK",
+    "signal": 1.0547929955247308,
+    "predictability": 0.71
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "SWK",
+    "signal": 0.31330485015586057,
+    "predictability": 0.34
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "TAL",
+    "signal": 8.03819635361475,
+    "predictability": 0.36
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "TROW",
+    "signal": -25.969256950012596,
+    "predictability": 0.8
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "TROW",
+    "signal": -0.32793014364955403,
+    "predictability": 0.67
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "TSM",
+    "signal": -0.13341580498693337,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "UA",
+    "signal": 0.2581446800878718,
+    "predictability": 0.22
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "UA",
+    "signal": 0.35409226029752333,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "UAA",
+    "signal": 0.5611355729194234,
+    "predictability": 0.38
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "UAA",
+    "signal": 0.695525184921134,
+    "predictability": 0.48
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "UAA",
+    "signal": 0.3371528862499057,
+    "predictability": 0.22
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "UAA",
+    "signal": 0.48804648569042286,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "UCTT",
+    "signal": -78.86106665803024,
+    "predictability": 0.76
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "UPST",
+    "signal": 0.5517000157936882,
+    "predictability": 0.47
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "UPST",
+    "signal": 1.0486511750582317,
+    "predictability": 0.64
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "VCEL",
+    "signal": -0.4301712887178047,
+    "predictability": 0.39
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "VCEL",
+    "signal": -0.36871824747240417,
+    "predictability": 0.55
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "VCEL",
+    "signal": -0.23610905320601314,
+    "predictability": 0.73
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "VCEL",
+    "signal": -0.43664002990153117,
+    "predictability": 0.27
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "VECO",
+    "signal": -38.30819845092822,
+    "predictability": 0.77
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "14d",
+    "symbol": "XPO",
+    "signal": -0.11731842885012879,
+    "predictability": 0.38
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "XPO",
+    "signal": -0.12709496458763953,
+    "predictability": 0.51
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3d",
+    "symbol": "XPO",
+    "signal": -0.20775138442210309,
+    "predictability": 0.21
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "7d",
+    "symbol": "XPO",
+    "signal": -0.15153630393141634,
+    "predictability": 0.29
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "Z",
+    "signal": 0.737696197447305,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "Z",
+    "signal": 1.111652995599263,
+    "predictability": 0.64
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "12m",
+    "symbol": "ZBRA",
+    "signal": 171.53822612543425,
+    "predictability": 0.75
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "1m",
+    "symbol": "ZBRA",
+    "signal": 0.6512334256680007,
+    "predictability": 0.5
+  },
+  {
+    "date": "2024-09-30",
+    "horizon": "3m",
+    "symbol": "ZBRA",
+    "signal": 1.1037854672338996,
+    "predictability": 0.66
   }
 ]
