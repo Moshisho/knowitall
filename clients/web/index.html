@@ -297,39 +297,43 @@
          <label>Date</label>
          <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
        </div>
-       <div class="control-group">
-         <label>Column Visibility</label>
-         <div class="checkbox-group">
-           <label class="checkbox-label">
-             <input type="checkbox" id="togglePredictability" checked> Predictability
-           </label>
-           <label class="checkbox-label">
-             <input type="checkbox" id="toggleAV" checked> AV Data
-           </label>
-           <label class="checkbox-label">
-             <input type="checkbox" id="toggleYHPrices" checked> YH Prices
-           </label>
-         </div>
-       </div>
+        <div class="control-group">
+          <label>Column Visibility</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="togglePredictability" checked> Predictability
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="toggleSP"> S&P
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="toggleAV" checked> AV Data
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="toggleYHPrices" checked> YH Prices
+            </label>
+          </div>
+        </div>
      </div>
     
     <div class="table-wrapper">
       <table id="dataTable">
-        <thead>
-          <tr>
-            <th class="sortable" data-field="date">Date</th>
-            <th class="sortable" data-field="symbol">Symbol</th>
-            <th class="sortable" data-field="horizon">Horizon</th>
-            <th class="sortable" data-field="signal">Signal</th>
-            <th class="sortable" data-field="predictability">Predictability</th>
-            <th class="sortable" data-field="yh-change-pct">YH Change %</th>
-            <th class="sortable" data-field="yh-change-abs">YH Change $</th>
-            <th class="sortable" data-field="av-change-pct">AV Change %</th>
-            <th class="sortable" data-field="av-change-abs">AV Change $</th>
-            <th class="sortable" data-field="yh-open">YH Open</th>
-            <th class="sortable" data-field="yh-close">YH Close</th>
-          </tr>
-        </thead>
+         <thead>
+           <tr>
+             <th class="sortable" data-field="date">Date</th>
+             <th class="sortable" data-field="symbol">Symbol</th>
+             <th class="sortable" data-field="horizon">Horizon</th>
+             <th class="sortable" data-field="signal">Signal</th>
+             <th class="sortable" data-field="predictability">Predictability</th>
+             <th class="sortable" data-field="yh-change-pct">YH Change %</th>
+             <th class="sortable" data-field="yh-change-abs">YH Change $</th>
+             <th class="sortable" data-field="sp-change-pct">S&P</th>
+             <th class="sortable" data-field="av-change-pct">AV Change %</th>
+             <th class="sortable" data-field="av-change-abs">AV Change $</th>
+             <th class="sortable" data-field="yh-open">YH Open</th>
+             <th class="sortable" data-field="yh-close">YH Close</th>
+           </tr>
+         </thead>
         <tbody id="tableBody">
         </tbody>
       </table>
@@ -2097,33 +2101,41 @@
      document.getElementById('withAV').textContent = withAV;
      document.getElementById('withYH').textContent = withYH;
      
-     // Column configuration and visibility
-     const columnConfig = {
-       predictability: {
-         name: 'predictability',
-         checkboxId: 'togglePredictability',
-         headerSelector: 'th[data-field="predictability"]',
-         cellSelector: 'td:nth-child(5)',
-         defaultVisible: true,
-         visible: true
-       },
-       av: {
-         name: 'av',
-         checkboxId: 'toggleAV',
-         headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
-         cellSelector: 'td:nth-child(8), td:nth-child(9)',
-         defaultVisible: true,
-         visible: true
-       },
-       yh_prices: {
-         name: 'yh_prices',
-         checkboxId: 'toggleYHPrices',
-         headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
-         cellSelector: 'td:nth-child(10), td:nth-child(11)',
-         defaultVisible: true,
-         visible: true
-       }
-     };
+      // Column configuration and visibility
+      const columnConfig = {
+        predictability: {
+          name: 'predictability',
+          checkboxId: 'togglePredictability',
+          headerSelector: 'th[data-field="predictability"]',
+          cellSelector: 'td:nth-child(5)',
+          defaultVisible: true,
+          visible: true
+        },
+        sp: {
+          name: 'sp',
+          checkboxId: 'toggleSP',
+          headerSelector: 'th[data-field="sp-change-pct"]',
+          cellSelector: 'td:nth-child(8)',
+          defaultVisible: false,
+          visible: false
+        },
+        av: {
+          name: 'av',
+          checkboxId: 'toggleAV',
+          headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
+          cellSelector: 'td:nth-child(9), td:nth-child(10)',
+          defaultVisible: true,
+          visible: true
+        },
+        yh_prices: {
+          name: 'yh_prices',
+          checkboxId: 'toggleYHPrices',
+          headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
+          cellSelector: 'td:nth-child(11), td:nth-child(12)',
+          defaultVisible: true,
+          visible: true
+        }
+      };
      
      // Column visibility functions
      function saveColumnVisibility() {
@@ -2391,36 +2403,47 @@
       return '<span class="' + className + '">' + formatted + suffix + '</span>';
     }
     
-    // Build table
-     function renderTable() {
-       const tbody = document.getElementById('tableBody');
-       tbody.innerHTML = '';
-       
-       const start = (currentPage - 1) * pageSize;
-       const end = start + pageSize;
-       const pageData = filteredData.slice(start, end);
-       
-       pageData.forEach(row => {
-         const tr = document.createElement('tr');
-         tr.innerHTML = `
-           <td>${row.date}</td>
-           <td>${row.symbol}</td>
-           <td>${row.horizon}</td>
-           <td class="number">${formatWithColor(row.prediction.signal)}</td>
-           <td class="number">${formatValue(row.prediction.predictability)}</td>
-           <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
-           <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
-           <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
-           <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
-           <td class="number">${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
-           <td class="number">${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
-         `;
-         tbody.appendChild(tr);
-       });
-       
-       updatePagination();
-       applyColumnVisibility();
-     }
+     // Build table
+      function renderTable() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        const pageData = filteredData.slice(start, end);
+        
+        pageData.forEach(row => {
+          const tr = document.createElement('tr');
+          
+          // Find S&P data matching the same horizon and date
+          const spData = rawData.find(d => 
+            d.symbol === '^S&P500' && 
+            d.horizon === row.horizon && 
+            d.date === row.date &&
+            d.performance.yh
+          );
+          const spChangeValue = spData ? spData.performance.yh['change-percentage'] : null;
+          
+          tr.innerHTML = `
+            <td>${row.date}</td>
+            <td>${row.symbol}</td>
+            <td>${row.horizon}</td>
+            <td class="number">${formatWithColor(row.prediction.signal)}</td>
+            <td class="number">${formatValue(row.prediction.predictability)}</td>
+            <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
+            <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
+            <td class="number">${formatWithColor(spChangeValue, true)}</td>
+            <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
+            <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
+            <td class="number">${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
+            <td class="number">${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+        
+        updatePagination();
+        applyColumnVisibility();
+      }
     
     // Filter data
     function applyFilters() {
@@ -2504,18 +2527,22 @@
        th.addEventListener('click', () => sortData(th.dataset.field));
      });
      
-     // Column visibility event listeners
-     document.getElementById('togglePredictability').addEventListener('change', () => {
-       toggleColumnVisibility('predictability');
-     });
-     
-     document.getElementById('toggleAV').addEventListener('change', () => {
-       toggleColumnVisibility('av');
-     });
-     
-     document.getElementById('toggleYHPrices').addEventListener('change', () => {
-       toggleColumnVisibility('yh_prices');
-     });
+      // Column visibility event listeners
+      document.getElementById('togglePredictability').addEventListener('change', () => {
+        toggleColumnVisibility('predictability');
+      });
+      
+      document.getElementById('toggleSP').addEventListener('change', () => {
+        toggleColumnVisibility('sp');
+      });
+      
+      document.getElementById('toggleAV').addEventListener('change', () => {
+        toggleColumnVisibility('av');
+      });
+      
+      document.getElementById('toggleYHPrices').addEventListener('change', () => {
+        toggleColumnVisibility('yh_prices');
+      });
      
      // Initial render
      initializeColumnVisibility();

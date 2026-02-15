@@ -44,8 +44,17 @@ function formatDate(date) {
   return date.toISOString().split('T')[0];
 }
 
+function normalizeSymbol(symbol) {
+  // Map ^S&P500 to ^GSPC for Alpha Vantage
+  if (symbol === '^S&P500') {
+    return '^GSPC';
+  }
+  return symbol;
+}
+
 async function fetchStockData(symbol, apiKey) {
-  const url = `${AV_BASE_URL}?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`;
+  const normalizedSymbol = normalizeSymbol(symbol);
+  const url = `${AV_BASE_URL}?function=TIME_SERIES_DAILY&symbol=${normalizedSymbol}&apikey=${apiKey}`;
   
   try {
     const response = await fetch(url);
@@ -260,3 +269,13 @@ async function main() {
 if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
+
+export {
+  calculateReturn,
+  checkExistingData,
+  loadSymbolsData,
+  saveSymbolsData,
+  parseDate,
+  formatDate,
+  normalizeSymbol
+};

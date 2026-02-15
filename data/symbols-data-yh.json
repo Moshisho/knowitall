@@ -534,5 +534,95 @@
     "close-price": 106.21,
     "change-abs": -3.35,
     "change-percentage": -3.06
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "3d",
+    "open-price": 5775.34,
+    "close-price": 5728.8,
+    "change-abs": -46.54,
+    "change-percentage": -0.81
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "7d",
+    "open-price": 5775.34,
+    "close-price": 5929.04,
+    "change-abs": 153.7,
+    "change-percentage": 2.66
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "14d",
+    "open-price": 5775.34,
+    "close-price": 5985.38,
+    "change-abs": 210.04,
+    "change-percentage": 3.64
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "BOOT",
+    "horizon": "14d",
+    "open-price": 127.9,
+    "close-price": 132.37,
+    "change-abs": 4.47,
+    "change-percentage": 3.49
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "CROX",
+    "horizon": "14d",
+    "open-price": 109.56,
+    "close-price": 98.96,
+    "change-abs": -10.6,
+    "change-percentage": -9.68
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "PHG",
+    "horizon": "14d",
+    "open-price": 26.08,
+    "close-price": 25.96,
+    "change-abs": -0.12,
+    "change-percentage": -0.46
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "3m",
+    "open-price": 5757.73,
+    "close-price": 6040.53,
+    "change-abs": 282.8,
+    "change-percentage": 4.91
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "ZBRA",
+    "horizon": "12m",
+    "open-price": 369.84,
+    "close-price": 269.25,
+    "change-abs": -100.59,
+    "change-percentage": -27.2
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "1m",
+    "open-price": 5757.73,
+    "close-price": 5881.63,
+    "change-abs": 123.9,
+    "change-percentage": 2.15
+  },
+  {
+    "date": "2024-10-30",
+    "symbol": "^S&P500",
+    "horizon": "12m",
+    "open-price": 5757.73,
+    "close-price": 6840.2,
+    "change-abs": 1082.47,
+    "change-percentage": 18.8
   }
 ]
