@@ -276,63 +276,72 @@
       </div>
     </div>
     
-     <div class="controls">
-       <div class="control-group">
-         <label>Symbol</label>
-         <input type="text" id="filterSymbol" placeholder="Filter...">
-       </div>
-       <div class="control-group">
-         <label>Horizon</label>
-         <select id="filterHorizon">
-           <option value="">All</option>
-           <option value="3d">3d</option>
-           <option value="7d">7d</option>
-           <option value="14d">14d</option>
-           <option value="1m">1m</option>
-           <option value="3m">3m</option>
-           <option value="12m">12m</option>
-         </select>
-       </div>
-       <div class="control-group">
-         <label>Date</label>
-         <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
-       </div>
+      <div class="controls">
         <div class="control-group">
-          <label>Column Visibility</label>
-          <div class="checkbox-group">
-            <label class="checkbox-label">
-              <input type="checkbox" id="togglePredictability" checked> Predictability
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="toggleSP"> S&P
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="toggleAV" checked> AV Data
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="toggleYHPrices" checked> YH Prices
-            </label>
-          </div>
+          <label>Symbol</label>
+          <select id="filterSymbol">
+            <option value="">All</option>
+          </select>
         </div>
-     </div>
+        <div class="control-group">
+          <label>Horizon</label>
+          <select id="filterHorizon">
+            <option value="">All</option>
+            <option value="3d">3d</option>
+            <option value="7d">7d</option>
+            <option value="14d">14d</option>
+            <option value="1m">1m</option>
+            <option value="3m">3m</option>
+            <option value="12m">12m</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Date</label>
+          <select id="filterDate">
+            <option value="">All</option>
+          </select>
+        </div>
+         <div class="control-group">
+           <label>Column Visibility</label>
+           <div class="checkbox-group">
+             <label class="checkbox-label">
+               <input type="checkbox" id="togglePredictability" checked> Predictability
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleSP"> S&P
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleAV" checked> AV Data
+             </label>
+             <label class="checkbox-label">
+               <input type="checkbox" id="toggleYHPrices" checked> YH Prices
+             </label>
+           </div>
+         </div>
+         <div class="control-group">
+           <label>&nbsp;</label>
+           <button id="fetchAllBtn" onclick="fetchAllData()" style="background: #2196F3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: 500;">⬇️ Fetch All Data</button>
+         </div>
+      </div>
     
     <div class="table-wrapper">
       <table id="dataTable">
          <thead>
-           <tr>
-             <th class="sortable" data-field="date">Date</th>
-             <th class="sortable" data-field="symbol">Symbol</th>
-             <th class="sortable" data-field="horizon">Horizon</th>
-             <th class="sortable" data-field="signal">Signal</th>
-             <th class="sortable" data-field="predictability">Predictability</th>
-             <th class="sortable" data-field="yh-change-pct">YH Change %</th>
-             <th class="sortable" data-field="yh-change-abs">YH Change $</th>
-             <th class="sortable" data-field="sp-change-pct">S&P</th>
-             <th class="sortable" data-field="av-change-pct">AV Change %</th>
-             <th class="sortable" data-field="av-change-abs">AV Change $</th>
-             <th class="sortable" data-field="yh-open">YH Open</th>
-             <th class="sortable" data-field="yh-close">YH Close</th>
-           </tr>
+            <tr>
+              <th class="sortable" data-field="date">Date</th>
+              <th class="sortable" data-field="symbol">Symbol</th>
+              <th class="sortable" data-field="horizon">Horizon</th>
+              <th class="sortable" data-field="signal">Signal</th>
+              <th class="sortable" data-field="predictability">Predictability</th>
+              <th class="sortable" data-field="yh-change-pct">YH %</th>
+              <th class="sortable" data-field="yh-change-abs">YH $</th>
+              <th class="sortable" data-field="sp-change-pct">S&P A%</th>
+              <th class="sortable" data-field="sp-prediction">S&P P#</th>
+              <th class="sortable" data-field="av-change-pct">AV Change %</th>
+              <th class="sortable" data-field="av-change-abs">AV Change $</th>
+              <th class="sortable" data-field="yh-open">YH Open</th>
+              <th class="sortable" data-field="yh-close">YH Close</th>
+            </tr>
          </thead>
         <tbody id="tableBody">
         </tbody>
@@ -347,1795 +356,115 @@
   </div>
 
   <script>
-    const rawData = [
-  {
-    "date": "2024-10-31",
-    "symbol": "FVRR",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 5.38296779052462,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 29.04,
-        "close-price": 30.19,
-        "change-abs": 1.15,
-        "change-percentage": 3.96
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CVNA",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 3.6321024873244134,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 238.2,
-        "close-price": 229.08,
-        "change-abs": -9.12,
-        "change-percentage": -3.83
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TARS",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 1.2107679460681469,
-      "predictability": 0.2
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 44.38,
-        "close-price": 47.3,
-        "change-abs": 2.92,
-        "change-percentage": 6.58
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "XPO",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 1.123545718386284,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 135,
-        "close-price": 130.19,
-        "change-abs": -4.81,
-        "change-percentage": -3.56
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 0.6945454278068741,
-      "predictability": 0.23
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 103.21,
-        "close-price": 104.92,
-        "change-abs": 1.71,
-        "change-percentage": 1.66
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "FVRR",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 5.643960168247026,
-      "predictability": 0.31
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 29.04,
-        "close-price": 29.54,
-        "change-abs": 0.5,
-        "change-percentage": 1.72
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CVNA",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 4.226615426426107,
-      "predictability": 0.28
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TWLO",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 2.2177521436763534,
-      "predictability": 0.27
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TARS",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 1.7722835152591714,
-      "predictability": 0.27
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "XPO",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 1.4629023843478552,
-      "predictability": 0.29
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "FVRR",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 5.5787120738164235,
-      "predictability": 0.41
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TWLO",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 2.680870973679356,
-      "predictability": 0.37
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TARS",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 2.2416754363797935,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "XPO",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 1.6463384200027589,
-      "predictability": 0.38
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 1.5008567865251994,
-      "predictability": 0.39
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHAK",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 0.6420910291305667,
-      "predictability": 0.2
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TGTX",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 0.5682827596000544,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "OMF",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 0.3709745716193427,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "AXTA",
-    "horizon": "3d",
-    "prediction": {
-      "signal": 0.3643047687814198,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SNAP",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 1.427307947988091,
-      "predictability": 0.27
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 1.1056843879454261,
-      "predictability": 0.31
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TGTX",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 0.7577103461334056,
-      "predictability": 0.28
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHAK",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 0.7547385781008414,
-      "predictability": 0.27
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHOP",
-    "horizon": "7d",
-    "prediction": {
-      "signal": 0.7225292161879959,
-      "predictability": 0.31
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SNAP",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 1.4528869434717484,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHOP",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 1.1960164472218318,
-      "predictability": 0.41
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHAK",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 0.8448566172770614,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TAL",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 0.6552958443437226,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CCL",
-    "horizon": "14d",
-    "prediction": {
-      "signal": 0.5944684796726379,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -0.07998064822654152,
-      "predictability": 0.29
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -0.04284677583564725,
-      "predictability": 0.39
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.10854516545030635,
-      "predictability": 0.22
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "IBP",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.6330791708858954,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.7289045237328899,
-      "predictability": 0.24
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EBAY",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.8841600129279157,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SWK",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.9556205424851578,
-      "predictability": 0.24
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "UMC",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -0.9592914978186283,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -0.9103061020374551,
-      "predictability": 0.33
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EBAY",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -0.9677373275827933,
-      "predictability": 0.28
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "UMC",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -1.0557027036295459,
-      "predictability": 0.29
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SWK",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -1.0868871005188334,
-      "predictability": 0.33
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "LYG",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -1.309765089195258,
-      "predictability": 0.3
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 2.79,
-        "close-price": 2.81,
-        "change-abs": 0.02,
-        "change-percentage": 0.72
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "GE",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -0.8969012666702786,
-      "predictability": 0.42
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 172,
-        "close-price": 183.56,
-        "change-abs": 11.56,
-        "change-percentage": 6.72
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EBAY",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -0.9369456853415228,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -0.9861649438739098,
-      "predictability": 0.43
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SWK",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -1.0501324642694045,
-      "predictability": 0.43
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "UMC",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -1.1135494271160964,
-      "predictability": 0.39
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "LYG",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -1.055631564426029,
-      "predictability": 0.22
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MOD",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -1.2630132077854292,
-      "predictability": 0.21
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PHG",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -2.0971654550031147,
-      "predictability": 0.23
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CROX",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -3.893450649387016,
-      "predictability": 0.23
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BOOT",
-    "horizon": "3d",
-    "prediction": {
-      "signal": -5.731230380620544,
-      "predictability": 0.24
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MOD",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -1.4650953210310977,
-      "predictability": 0.28
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ASPN",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -1.9988373513880735,
-      "predictability": 0.27
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PHG",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -2.523474498315224,
-      "predictability": 0.32
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CROX",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -4.0252601765798035,
-      "predictability": 0.31
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BOOT",
-    "horizon": "7d",
-    "prediction": {
-      "signal": -6.2759340944811735,
-      "predictability": 0.31
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "LYG",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -1.3635241040502872,
-      "predictability": 0.37
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MOD",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -1.5257199550047982,
-      "predictability": 0.36
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PHG",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -2.6128618783645368,
-      "predictability": 0.42
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CROX",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -3.9542858157836873,
-      "predictability": 0.39
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BOOT",
-    "horizon": "14d",
-    "prediction": {
-      "signal": -6.252251324313321,
-      "predictability": 0.39
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "FVRR",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 5.687458897867426,
-      "predictability": 0.53
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TWLO",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 3.7571330434046457,
-      "predictability": 0.5
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHOP",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 2.4012566716715957,
-      "predictability": 0.52
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 2.339101268361082,
-      "predictability": 0.5
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "XPO",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 1.852703960114525,
-      "predictability": 0.51
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 131.81,
-        "close-price": 152.5,
-        "change-abs": 20.69,
-        "change-percentage": 15.7
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "FVRR",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 6.4269373014142435,
-      "predictability": 0.65
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 29.49,
-        "close-price": 29.77,
-        "change-abs": 0.28,
-        "change-percentage": 0.95
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TWLO",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 4.879054716087978,
-      "predictability": 0.66
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 81,
-        "close-price": 142.54,
-        "change-abs": 61.54,
-        "change-percentage": 75.98
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHOP",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 3.9938955396944973,
-      "predictability": 0.63
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 79.05,
-        "close-price": 111.87,
-        "change-abs": 32.82,
-        "change-percentage": 41.52
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 3.5485683064385705,
-      "predictability": 0.65
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 103.29,
-        "close-price": 178.72,
-        "change-abs": 75.43,
-        "change-percentage": 73.03
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "HLNE",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.9752866713162727,
-      "predictability": 0.63
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 180.21,
-        "close-price": 153.95,
-        "change-abs": -26.26,
-        "change-percentage": -14.57
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CVNA",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 1198.030953506691,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 247.31,
-        "close-price": 306.64,
-        "change-abs": 59.33,
-        "change-percentage": 23.99
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHOP",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 326.70997046550053,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EAT",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 310.31089897066823,
-      "predictability": 0.76
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TWLO",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 305.80943027994175,
-      "predictability": 0.76
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "TARS",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 268.8233072470914,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SNAP",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 1.2789497741828773,
-      "predictability": 0.48
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHAK",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 1.066396796918602,
-      "predictability": 0.48
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SQ",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 0.8856198387547971,
-      "predictability": 0.49
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SE",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 0.8674735421812315,
-      "predictability": 0.47
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MLM",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 0.8069623543797589,
-      "predictability": 0.46
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "XPO",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.756400041395701,
-      "predictability": 0.66
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 131.81,
-        "close-price": 130.4,
-        "change-abs": -1.41,
-        "change-percentage": -1.07
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PLTR",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.624879105495071,
-      "predictability": 0.67
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 41.93,
-        "close-price": 80.13,
-        "change-abs": 38.2,
-        "change-percentage": 91.1
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SHAK",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.4982124013046558,
-      "predictability": 0.66
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "GWRE",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.4943495448516468,
-      "predictability": 0.66
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 186.51,
-        "close-price": 208.42,
-        "change-abs": 21.91,
-        "change-percentage": 11.75
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SQ",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 1.3025722445919097,
-      "predictability": 0.66
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "HLNE",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 215.17785956177119,
-      "predictability": 0.76
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CVLT",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 199.3047296546685,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "AMSC",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 151.90901943833552,
-      "predictability": 0.78
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PLTR",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 148.6487473558522,
-      "predictability": 0.79
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ZBRA",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 148.09799868028523,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "3m",
-    "prediction": {
-      "signal": 0.22239126721936506,
-      "predictability": 0.7
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "12m",
-    "prediction": {
-      "signal": 39.456297680405605,
-      "predictability": 0.8
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "^S&P500",
-    "horizon": "1m",
-    "prediction": {
-      "signal": 0.056301586637813934,
-      "predictability": 0.52
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "EBAY",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -0.6466244870666845,
-      "predictability": 0.46
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 65.15,
-        "close-price": 61.95,
-        "change-abs": -3.2,
-        "change-percentage": -4.91
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "IBP",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -0.6500745848694094,
-      "predictability": 0.47
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SWK",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -0.7140900757031949,
-      "predictability": 0.54
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "GE",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -0.922166091083526,
-      "predictability": 0.54
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "UMC",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -1.118369987406642,
-      "predictability": 0.51
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "NTAP",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -0.7147444142918559,
-      "predictability": 0.68
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 115.56,
-        "close-price": 119.26,
-        "change-abs": 3.7,
-        "change-percentage": 3.2
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "UMC",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -0.7182634832913348,
-      "predictability": 0.65
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 7.01,
-        "close-price": 5.92,
-        "change-abs": -1.09,
-        "change-percentage": -15.55
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CAMT",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -0.7876474771230182,
-      "predictability": 0.67
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MU",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -0.8786638294022104,
-      "predictability": 0.62
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PHG",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -1.3545626053626674,
-      "predictability": 0.68
-    },
-    "performance": {
-      "av": null,
-      "yh": {
-        "open-price": 26.5,
-        "close-price": 26.82,
-        "change-abs": 0.32,
-        "change-percentage": 1.21
-      }
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "LRCX",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -10.735259266161533,
-      "predictability": 0.77
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ITT",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -13.00699489958785,
-      "predictability": 0.79
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CAMT",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -13.332060376413162,
-      "predictability": 0.79
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "MU",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -17.816248490366107,
-      "predictability": 0.77
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "IEUR",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -21.21265376487501,
-      "predictability": 0.81
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -1.236828942985673,
-      "predictability": 0.55
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "PHG",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -2.427211165954425,
-      "predictability": 0.55
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ASPN",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -3.307354586575111,
-      "predictability": 0.47
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "CROX",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -3.7109451501969986,
-      "predictability": 0.47
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BOOT",
-    "horizon": "1m",
-    "prediction": {
-      "signal": -5.482561293858081,
-      "predictability": 0.48
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -1.9294531510576498,
-      "predictability": 0.68
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BITF",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -1.9662988004510353,
-      "predictability": 0.65
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BOOT",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -2.4866908676246164,
-      "predictability": 0.63
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "COIN",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -2.6074775996293806,
-      "predictability": 0.64
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ASPN",
-    "horizon": "3m",
-    "prediction": {
-      "signal": -3.1682602348032614,
-      "predictability": 0.63
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "BITF",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -24.954020693718082,
-      "predictability": 0.8
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "DKNG",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -25.25985620063062,
-      "predictability": 0.76
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SNAP",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -31.37922908572615,
-      "predictability": 0.78
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "ANF",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -77.58401585407385,
-      "predictability": 0.77
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  },
-  {
-    "date": "2024-10-31",
-    "symbol": "SLNO",
-    "horizon": "12m",
-    "prediction": {
-      "signal": -111.03183718038264,
-      "predictability": 0.75
-    },
-    "performance": {
-      "av": null,
-      "yh": null
-    }
-  }
-];
+    let rawData = [];
     
     let currentPage = 1;
     const pageSize = 50;
     let sortField = 'symbol';
     let sortDir = 'asc';
-    let filteredData = [...rawData];
+    let filteredData = [];
     
-    // Calculate stats
-    const uniqueSymbols = new Set(rawData.map(d => d.symbol)).size;
-    const withAV = rawData.filter(d => d.performance.av !== null).length;
-    const withYH = rawData.filter(d => d.performance.yh !== null).length;
+    // Load data dynamically from server on page load
+     async function loadData() {
+       try {
+         console.log('[DEBUG] Starting loadData()...');
+         const response = await fetch('/api/get-all-data');
+         console.log('[DEBUG] Fetch response received:', response.status);
+         if (!response.ok) {
+           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+         }
+         rawData = await response.json();
+         console.log('[DEBUG] rawData loaded, records:', rawData.length);
+         filteredData = [...rawData];
+         console.log('[DEBUG] filteredData initialized');
+         updateStats();
+         console.log('[DEBUG] Stats updated');
+         populateFilterDropdowns();
+         console.log('[DEBUG] Filter dropdowns populated');
+         renderTable();
+         console.log('[DEBUG] Table rendered');
+       } catch (error) {
+         console.error('Failed to load data:', error);
+         document.getElementById('totalRecords').textContent = 'Error loading data';
+       }
+     }
     
-     document.getElementById('totalRecords').textContent = rawData.length;
-     document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
-     document.getElementById('withAV').textContent = withAV;
-     document.getElementById('withYH').textContent = withYH;
+     // Calculate and update stats
+     function updateStats() {
+       const uniqueSymbols = new Set(rawData.map(d => d.symbol)).size;
+       const withAV = rawData.filter(d => d.performance.av !== null).length;
+       const withYH = rawData.filter(d => d.performance.yh !== null).length;
+       
+       document.getElementById('totalRecords').textContent = rawData.length;
+       document.getElementById('uniqueSymbols').textContent = uniqueSymbols;
+       document.getElementById('withAV').textContent = withAV;
+       document.getElementById('withYH').textContent = withYH;
+     }
+     
+     // Populate filter dropdowns with distinct values
+     function populateFilterDropdowns() {
+       // Get distinct symbols, sorted
+       const symbols = Array.from(new Set(rawData.map(d => d.symbol))).sort();
+       const symbolSelect = document.getElementById('filterSymbol');
+       const currentSymbolValue = symbolSelect.value;
+       symbolSelect.innerHTML = '<option value="">All</option>';
+       symbols.forEach(symbol => {
+         const option = document.createElement('option');
+         option.value = symbol;
+         option.textContent = symbol;
+         symbolSelect.appendChild(option);
+       });
+       symbolSelect.value = currentSymbolValue;
+       
+       // Get distinct dates, sorted
+       const dates = Array.from(new Set(rawData.map(d => d.date))).sort();
+       const dateSelect = document.getElementById('filterDate');
+       const currentDateValue = dateSelect.value;
+       dateSelect.innerHTML = '<option value="">All</option>';
+       dates.forEach(date => {
+         const option = document.createElement('option');
+         option.value = date;
+         option.textContent = date;
+         dateSelect.appendChild(option);
+       });
+       dateSelect.value = currentDateValue;
+     }
      
       // Column configuration and visibility
-      const columnConfig = {
-        predictability: {
-          name: 'predictability',
-          checkboxId: 'togglePredictability',
-          headerSelector: 'th[data-field="predictability"]',
-          cellSelector: 'td:nth-child(5)',
-          defaultVisible: true,
-          visible: true
-        },
-        sp: {
-          name: 'sp',
-          checkboxId: 'toggleSP',
-          headerSelector: 'th[data-field="sp-change-pct"]',
-          cellSelector: 'td:nth-child(8)',
-          defaultVisible: false,
-          visible: false
-        },
-        av: {
-          name: 'av',
-          checkboxId: 'toggleAV',
-          headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
-          cellSelector: 'td:nth-child(9), td:nth-child(10)',
-          defaultVisible: true,
-          visible: true
-        },
-        yh_prices: {
-          name: 'yh_prices',
-          checkboxId: 'toggleYHPrices',
-          headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
-          cellSelector: 'td:nth-child(11), td:nth-child(12)',
-          defaultVisible: true,
-          visible: true
-        }
-      };
+       const columnConfig = {
+         predictability: {
+           name: 'predictability',
+           checkboxId: 'togglePredictability',
+           headerSelector: 'th[data-field="predictability"]',
+           cellSelector: 'td:nth-child(5)',
+           defaultVisible: true,
+           visible: true
+         },
+         sp: {
+           name: 'sp',
+           checkboxId: 'toggleSP',
+           headerSelector: 'th[data-field="sp-change-pct"], th[data-field="sp-prediction"]',
+           cellSelector: 'td:nth-child(8), td:nth-child(9)',
+           defaultVisible: false,
+           visible: false
+         },
+         av: {
+           name: 'av',
+           checkboxId: 'toggleAV',
+           headerSelector: 'th[data-field="av-change-pct"], th[data-field="av-change-abs"]',
+           cellSelector: 'td:nth-child(10), td:nth-child(11)',
+           defaultVisible: true,
+           visible: true
+         },
+         yh_prices: {
+           name: 'yh_prices',
+           checkboxId: 'toggleYHPrices',
+           headerSelector: 'th[data-field="yh-open"], th[data-field="yh-close"]',
+           cellSelector: 'td:nth-child(12), td:nth-child(13)',
+           defaultVisible: true,
+           visible: true
+         }
+       };
      
      // Column visibility functions
      function saveColumnVisibility() {
@@ -2211,27 +540,39 @@
        }));
      }
      
-      function applySortToData(field) {
-        filteredData.sort((a, b) => {
-          let aVal, bVal;
-          
-          if (field === 'date') { aVal = a.date; bVal = b.date; }
-          else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
-          else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
-          else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
-          else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
-          else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
-          else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
-          else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
-          else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
-          else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
-          else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
-          
-          if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
-          if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
-          return 0;
-        });
-      }
+       function applySortToData(field) {
+         filteredData.sort((a, b) => {
+           let aVal, bVal;
+           
+           if (field === 'date') { aVal = a.date; bVal = b.date; }
+           else if (field === 'symbol') { aVal = a.symbol; bVal = b.symbol; }
+           else if (field === 'horizon') { aVal = a.horizon; bVal = b.horizon; }
+           else if (field === 'signal') { aVal = a.prediction.signal; bVal = b.prediction.signal; }
+           else if (field === 'predictability') { aVal = a.prediction.predictability; bVal = b.prediction.predictability; }
+           else if (field === 'sp-change-pct') { 
+             const spA = rawData.find(d => d.symbol === '^S&P500' && d.horizon === a.horizon && d.date === a.date && d.performance.yh);
+             const spB = rawData.find(d => d.symbol === '^S&P500' && d.horizon === b.horizon && d.date === b.date && d.performance.yh);
+             aVal = spA ? spA.performance.yh['change-percentage'] : -999;
+             bVal = spB ? spB.performance.yh['change-percentage'] : -999;
+           }
+           else if (field === 'sp-prediction') {
+             const spA = rawData.find(d => d.symbol === '^S&P500' && d.horizon === a.horizon && d.date === a.date);
+             const spB = rawData.find(d => d.symbol === '^S&P500' && d.horizon === b.horizon && d.date === b.date);
+             aVal = spA ? spA.prediction.signal : -999;
+             bVal = spB ? spB.prediction.signal : -999;
+           }
+           else if (field === 'av-change-pct') { aVal = a.performance.av ? a.performance.av['change-percentage'] : -999; bVal = b.performance.av ? b.performance.av['change-percentage'] : -999; }
+           else if (field === 'av-change-abs') { aVal = a.performance.av ? a.performance.av['change-abs'] : -999; bVal = b.performance.av ? b.performance.av['change-abs'] : -999; }
+           else if (field === 'yh-change-pct') { aVal = a.performance.yh ? a.performance.yh['change-percentage'] : -999; bVal = b.performance.yh ? b.performance.yh['change-percentage'] : -999; }
+           else if (field === 'yh-change-abs') { aVal = a.performance.yh ? a.performance.yh['change-abs'] : -999; bVal = b.performance.yh ? b.performance.yh['change-abs'] : -999; }
+           else if (field === 'yh-open') { aVal = a.performance.yh ? a.performance.yh['open-price'] : -999; bVal = b.performance.yh ? b.performance.yh['open-price'] : -999; }
+           else if (field === 'yh-close') { aVal = a.performance.yh ? a.performance.yh['close-price'] : -999; bVal = b.performance.yh ? b.performance.yh['close-price'] : -999; }
+           
+           if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+           if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+           return 0;
+         });
+       }
       
       function loadSortState() {
         const saved = localStorage.getItem('sortState');
@@ -2374,13 +715,125 @@
          
          console.log(`Updated ${symbol} ${horizon} ${startDate} with Yahoo data${fromCache ? ' (from cache)' : ''}`);
        }
+      }
+    
+     // Fetch all missing data
+     async function fetchAllData() {
+       const button = document.getElementById('fetchAllBtn');
+       const originalText = button.innerHTML;
+       button.disabled = true;
+       
+       // Find all records without Yahoo data
+       const recordsToFetch = rawData.filter(r => !r.performance.yh);
+       console.log(`[FETCH ALL] Found ${recordsToFetch.length} records without Yahoo data out of ${rawData.length} total`);
+       
+       if (recordsToFetch.length === 0) {
+         button.innerHTML = '✅ All data already loaded';
+         setTimeout(() => {
+           button.innerHTML = originalText;
+           button.disabled = false;
+         }, 2000);
+         return;
+       }
+       
+       let successful = 0;
+       let failed = 0;
+       
+       button.innerHTML = `⏳ Fetching 0/${recordsToFetch.length}...`;
+       
+       // Fetch records sequentially with small delay to avoid overwhelming the server
+       for (let i = 0; i < recordsToFetch.length; i++) {
+         const record = recordsToFetch[i];
+         
+         try {
+           const response = await fetch('/api/fetch-yahoo', {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({
+               symbol: record.symbol,
+               horizon: record.horizon,
+               startDate: record.date
+             })
+           });
+           
+           if (response.ok) {
+             const result = await response.json();
+             if (result.success) {
+               // Only update if we don't already have data (persistent, not cache)
+               const rowIndex = rawData.findIndex(r => 
+                 r.symbol === record.symbol && 
+                 r.horizon === record.horizon && 
+                 r.date === record.date
+               );
+               if (rowIndex !== -1 && !rawData[rowIndex].performance.yh) {
+                 rawData[rowIndex].performance.yh = {
+                   'open-price': result.data['open-price'],
+                   'close-price': result.data['close-price'],
+                   'change-abs': result.data['change-abs'],
+                   'change-percentage': result.data['change-percentage']
+                 };
+               }
+               successful++;
+               console.log(`[FETCH ALL] (${i+1}/${recordsToFetch.length}) ✅ ${record.symbol} ${record.horizon} ${record.date}`);
+             } else {
+               failed++;
+               console.log(`[FETCH ALL] (${i+1}/${recordsToFetch.length}) ❌ ${record.symbol} - ${result.error}`);
+             }
+           } else {
+             failed++;
+             console.log(`[FETCH ALL] (${i+1}/${recordsToFetch.length}) ❌ ${record.symbol} - HTTP ${response.status}`);
+           }
+         } catch (error) {
+           failed++;
+           console.log(`[FETCH ALL] (${i+1}/${recordsToFetch.length}) ❌ ${record.symbol} - ${error.message}`);
+         }
+         
+         // Update button text with progress
+         button.innerHTML = `⏳ Fetching ${successful + failed}/${recordsToFetch.length}...`;
+         
+         // Small delay between requests
+         await new Promise(resolve => setTimeout(resolve, 100));
+       }
+       
+       // Refresh table and stats
+       updateStats();
+       populateFilterDropdowns();
+       refreshTable();
+       
+       // Show final status
+       button.innerHTML = `✅ Done: ${successful} successful, ${failed} failed`;
+       button.style.background = failed === 0 ? '#27ae60' : '#ff9800';
+       
+       setTimeout(() => {
+         button.innerHTML = originalText;
+         button.style.background = '';
+         button.disabled = false;
+       }, 3000);
+       
+       console.log(`[FETCH ALL] Complete - ${successful} successful, ${failed} failed`);
      }
-    
-    // Make functions globally available
-    window.copyToClipboard = copyToClipboard;
-    window.fetchYahooData = fetchYahooData;
-    
-    // Format with color or fetch button
+     
+     // Make functions globally available
+      window.copyToClipboard = copyToClipboard;
+      window.fetchYahooData = fetchYahooData;
+      window.fetchAllData = fetchAllData;
+      
+      // Helper function to search for a specific record in the data
+      window.findRecord = (date, symbol, horizon) => {
+        const record = rawData.find(r => r.date === date && r.symbol === symbol && r.horizon === horizon);
+        if (record) {
+          console.log(`✅ Found ${date} ${symbol} ${horizon}:`, record);
+          return record;
+        } else {
+          console.log(`❌ NOT FOUND: ${date} ${symbol} ${horizon}`);
+          console.log('Available records with this symbol:', rawData.filter(r => r.symbol === symbol).map(r => `${r.date} ${r.horizon}`));
+          return null;
+        }
+      };
+     
+     // Format with color or fetch button
     function formatWithColor(val, isPercent = false, row = null, dataSource = null) {
       if (val === null || val === undefined) {
         if (row && dataSource) {
@@ -2404,63 +857,82 @@
     }
     
      // Build table
-      function renderTable() {
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = '';
+       function renderTable() {
+         const tbody = document.getElementById('tableBody');
+         tbody.innerHTML = '';
+         
+         const start = (currentPage - 1) * pageSize;
+         const end = start + pageSize;
+         const pageData = filteredData.slice(start, end);
+         
+         console.log('[DEBUG] renderTable() called - currentPage:', currentPage, 'pageSize:', pageSize, 'start:', start, 'end:', end);
+         console.log('[DEBUG] renderTable() - filteredData.length:', filteredData.length, 'pageData.length:', pageData.length);
+         console.log('[DEBUG] renderTable() - first record on this page:', pageData[0] ? `${pageData[0].date} ${pageData[0].symbol} ${pageData[0].horizon}` : 'NONE');
         
-        const start = (currentPage - 1) * pageSize;
-        const end = start + pageSize;
-        const pageData = filteredData.slice(start, end);
-        
-        pageData.forEach(row => {
-          const tr = document.createElement('tr');
-          
-          // Find S&P data matching the same horizon and date
-          const spData = rawData.find(d => 
-            d.symbol === '^S&P500' && 
-            d.horizon === row.horizon && 
-            d.date === row.date &&
-            d.performance.yh
-          );
-          const spChangeValue = spData ? spData.performance.yh['change-percentage'] : null;
-          
-          tr.innerHTML = `
-            <td>${row.date}</td>
-            <td>${row.symbol}</td>
-            <td>${row.horizon}</td>
-            <td class="number">${formatWithColor(row.prediction.signal)}</td>
-            <td class="number">${formatValue(row.prediction.predictability)}</td>
-            <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
-            <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
-            <td class="number">${formatWithColor(spChangeValue, true)}</td>
-            <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
-            <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
-            <td class="number">${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
-            <td class="number">${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-        
-        updatePagination();
-        applyColumnVisibility();
-      }
+         pageData.forEach(row => {
+           const tr = document.createElement('tr');
+           
+           // Find S&P data matching the same horizon and date (for actual performance)
+           const spData = rawData.find(d => 
+             d.symbol === '^S&P500' && 
+             d.horizon === row.horizon && 
+             d.date === row.date &&
+             d.performance.yh
+           );
+           const spChangeValue = spData ? spData.performance.yh['change-percentage'] : null;
+           
+           // Find S&P prediction matching the same horizon and date
+           const spPrediction = rawData.find(d => 
+             d.symbol === '^S&P500' && 
+             d.horizon === row.horizon && 
+             d.date === row.date
+           );
+           const spPredictionValue = spPrediction ? spPrediction.prediction.signal : null;
+           
+           tr.innerHTML = `
+             <td>${row.date}</td>
+             <td>${row.symbol}</td>
+             <td>${row.horizon}</td>
+             <td class="number">${formatWithColor(row.prediction.signal)}</td>
+             <td class="number">${formatValue(row.prediction.predictability)}</td>
+             <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-percentage'] : null, true, row, 'yh')}</td>
+             <td class="number">${formatWithColor(row.performance.yh ? row.performance.yh['change-abs'] : null, false, row, 'yh')}</td>
+             <td class="number">${formatWithColor(spChangeValue, true)}</td>
+             <td class="number">${formatWithColor(spPredictionValue, false)}</td>
+             <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-percentage'] : null, true, row, 'av')}</td>
+             <td class="number">${formatWithColor(row.performance.av ? row.performance.av['change-abs'] : null, false, row, 'av')}</td>
+             <td class="number">${formatValue(row.performance.yh ? row.performance.yh['open-price'] : null)}</td>
+             <td class="number">${formatValue(row.performance.yh ? row.performance.yh['close-price'] : null)}</td>
+           `;
+           tbody.appendChild(tr);
+         });
+         
+         updatePagination();
+         applyColumnVisibility();
+       }
     
-    // Filter data
-    function applyFilters() {
-      const symbol = document.getElementById('filterSymbol').value.toUpperCase();
-      const horizon = document.getElementById('filterHorizon').value;
-      const date = document.getElementById('filterDate').value;
-      
-      filteredData = rawData.filter(row => {
-        if (symbol && !row.symbol.includes(symbol)) return false;
-        if (horizon && row.horizon !== horizon) return false;
-        if (date && row.date !== date) return false;
-        return true;
-      });
-      
-      currentPage = 1;
-      renderTable();
-    }
+     // Filter data
+     function applyFilters() {
+       const symbol = document.getElementById('filterSymbol').value;
+       const horizon = document.getElementById('filterHorizon').value;
+       const date = document.getElementById('filterDate').value;
+       
+       console.log('[DEBUG] applyFilters - before filter:', 'rawData.length:', rawData.length);
+       console.log('[DEBUG] applyFilters - symbol:', symbol, 'horizon:', horizon, 'date:', date);
+       
+       filteredData = rawData.filter(row => {
+         if (symbol && row.symbol !== symbol) return false;
+         if (horizon && row.horizon !== horizon) return false;
+         if (date && row.date !== date) return false;
+         return true;
+       });
+       
+       console.log('[DEBUG] applyFilters - after filter:', 'filteredData.length:', filteredData.length);
+       console.log('[DEBUG] First few filtered records:', filteredData.slice(0, 3).map(r => `${r.date} ${r.symbol} ${r.horizon}`));
+       
+       currentPage = 1;
+       renderTable();
+     }
     
     // Refresh table without resetting filters or pagination
     function refreshTable() {
@@ -2519,9 +991,9 @@
     }
     
      // Event listeners
-     document.getElementById('filterSymbol').addEventListener('input', applyFilters);
-     document.getElementById('filterHorizon').addEventListener('change', applyFilters);
-     document.getElementById('filterDate').addEventListener('input', applyFilters);
+      document.getElementById('filterSymbol').addEventListener('change', applyFilters);
+      document.getElementById('filterHorizon').addEventListener('change', applyFilters);
+      document.getElementById('filterDate').addEventListener('change', applyFilters);
      
      document.querySelectorAll('th.sortable').forEach(th => {
        th.addEventListener('click', () => sortData(th.dataset.field));
@@ -2540,15 +1012,27 @@
         toggleColumnVisibility('av');
       });
       
-      document.getElementById('toggleYHPrices').addEventListener('change', () => {
-        toggleColumnVisibility('yh_prices');
-      });
-     
-     // Initial render
-     initializeColumnVisibility();
-     initializeSortState();
-     renderTable();
-     applyColumnVisibility();
+       document.getElementById('toggleYHPrices').addEventListener('change', () => {
+         toggleColumnVisibility('yh_prices');
+       });
+      
+       // Load data and initialize on page load
+       (async () => {
+         console.log('[DEBUG] Initialization starting...');
+         console.log('[DEBUG] localStorage keys:', Object.keys(localStorage));
+         console.log('[DEBUG] localStorage sortState:', localStorage.getItem('sortState'));
+         console.log('[DEBUG] localStorage columnVisibility:', localStorage.getItem('columnVisibility'));
+         
+         await loadData();
+         console.log('[DEBUG] loadData() completed, rawData.length:', rawData.length);
+         initializeColumnVisibility();
+         console.log('[DEBUG] Column visibility initialized');
+         initializeSortState();
+         console.log('[DEBUG] Sort state initialized, currentPage:', currentPage, 'filteredData.length:', filteredData.length);
+         applyColumnVisibility();
+         console.log('[DEBUG] Column visibility applied');
+         console.log('[DEBUG] Initialization complete');
+       })();
    </script>
 </body>
 </html>
